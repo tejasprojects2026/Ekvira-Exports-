@@ -1,5 +1,15 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import ekviraLogo from "@/assets/ekvira-logo.jpeg";
 import { FloatingWhatsAppButton } from "@/components/FloatingWhatsAppButton";
+import {
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_TITLE,
+  SITE_URL,
+  organizationJsonLd,
+  toAbsoluteUrl,
+  websiteJsonLd,
+} from "@/lib/seo";
 
 import appCss from "../styles.css?url";
 
@@ -29,20 +39,31 @@ export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Ekvira Export House — Indian Agri & Farm Exports" },
-      { name: "description", content: "Pune-based merchant trading firm exporting Indian agri & farm products to India and the Middle East." },
-      { name: "author", content: "Ekvira Export House" },
-      { property: "og:title", content: "Ekvira Export House" },
-      { property: "og:description", content: "From India's Fields to Global Markets." },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
+      { title: SITE_TITLE },
+      { name: "description", content: SITE_DESCRIPTION },
+      { name: "author", content: SITE_NAME },
+      { name: "robots", content: "index, follow, max-image-preview:large" },
+      { name: "theme-color", content: "#2f5a2f" },
+      { property: "og:title", content: SITE_TITLE },
+      { property: "og:description", content: SITE_DESCRIPTION },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { property: "og:site_name", content: SITE_NAME },
+      { property: "og:url", content: SITE_URL },
+      { property: "og:image", content: toAbsoluteUrl(ekviraLogo) },
+      { property: "og:locale", content: "en_IN" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: SITE_TITLE },
+      { name: "twitter:description", content: SITE_DESCRIPTION },
+      { name: "twitter:image", content: toAbsoluteUrl(ekviraLogo) },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap",
+      },
       { rel: "stylesheet", href: appCss },
     ],
   }),
@@ -51,9 +72,11 @@ export const Route = createRootRoute({
   notFoundComponent: NotFoundComponent,
 });
 
+const rootStructuredData = JSON.stringify([organizationJsonLd, websiteJsonLd]);
+
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en-IN">
       <head>
         <HeadContent />
       </head>
@@ -69,6 +92,10 @@ function RootComponent() {
   return (
     <>
       <Outlet />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: rootStructuredData }}
+      />
       <FloatingWhatsAppButton />
     </>
   );

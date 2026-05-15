@@ -113,13 +113,13 @@ export function SiteFooter() {
             </li>
             <li className="flex items-start gap-2">
               <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold/80" />
-              <a href="tel:+917276533359" className="whitespace-nowrap hover:text-gold">
+              <a href="tel:+917276533359" className="hover:text-gold">
                 +91 7276533359
               </a>
             </li>
             <li className="flex items-start gap-2">
               <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold/80" />
-              <a href="tel:+917875803175" className="whitespace-nowrap hover:text-gold">
+              <a href="tel:+917875803175" className="hover:text-gold">
                 +91 7875803175
               </a>
             </li>
@@ -132,18 +132,18 @@ export function SiteFooter() {
             <dl className="mt-2.5 space-y-2">
               <div className="flex items-start gap-2">
                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold/80" />
-                <div className="flex items-center gap-2 whitespace-nowrap text-[13px]">
+                <div className="flex flex-wrap items-center gap-2 text-[13px]">
                   <dt className="shrink-0 opacity-65">CIN</dt>
-                  <dd className="font-medium text-primary-foreground/95">
+                  <dd className="break-all font-medium text-primary-foreground/95">
                     U46909PN2026PTC253999
                   </dd>
                 </div>
               </div>
               <div className="flex items-start gap-2">
                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold/80" />
-                <div className="flex items-center gap-2 whitespace-nowrap text-[13px]">
+                <div className="flex flex-wrap items-center gap-2 text-[13px]">
                   <dt className="shrink-0 opacity-65">GST</dt>
-                  <dd className="font-medium text-primary-foreground/95">
+                  <dd className="break-all font-medium text-primary-foreground/95">
                     27AAJCE6086E1ZF
                   </dd>
                 </div>

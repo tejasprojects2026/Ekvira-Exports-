@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+﻿import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Apple, Bean, Carrot, Flame, Package, Sparkles, Wheat } from "lucide-react";
+import { Apple, Cog, CupSoda, Droplets, Gift, Shirt, Wheat, Wine } from "lucide-react";
 import productsBreadcrumbBanner from "@/assets/products-breadcrumb-banner.jpg";
 import vegFruitTamarindImage from "@/assets/product-page-images/Vegetables & Fruits/WhatsApp Image 2026-05-14 at 3.37.43 PM.jpeg";
 import vegFruitMuskmelonImage from "@/assets/product-page-images/Vegetables & Fruits/WhatsApp Image 2026-05-14 at 3.37.43 PM (1).jpeg";
@@ -43,17 +43,36 @@ import seasonalDecorImage from "@/assets/product-page-images/Seasonal Products/W
 import { PageBreadcrumbHero } from "@/components/PageBreadcrumbHero";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SITE_NAME, SITE_URL, toAbsoluteUrl } from "@/lib/seo";
 
 export const Route = createFileRoute("/products")({
   head: () => ({
     meta: [
-      { title: "Products - Ekvira Export House" },
+      { title: `Products | ${SITE_NAME}` },
       {
         name: "description",
         content:
-          "Grains, pulses, spices, vegetables, fruits and farm commodities - sourced and exported from India.",
+          "Browse export-ready products including vegetables, fruits, grains, spices, beverages, textiles, honey, seasonal products, and engineering goods sourced from India.",
       },
+      { property: "og:title", content: `Products | ${SITE_NAME}` },
+      {
+        property: "og:description",
+        content:
+          "Directly sourced from verified producers across India - compliant, export-ready, and available for domestic and international orders.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: `${SITE_URL}/products` },
+      { property: "og:image", content: toAbsoluteUrl(productsBreadcrumbBanner) },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: `Products | ${SITE_NAME}` },
+      {
+        name: "twitter:description",
+        content:
+          "Directly sourced from verified producers across India - compliant, export-ready, and available for domestic and international orders.",
+      },
+      { name: "twitter:image", content: toAbsoluteUrl(productsBreadcrumbBanner) },
     ],
+    links: [{ rel: "canonical", href: `${SITE_URL}/products` }],
   }),
   component: ProductsPage,
 });
@@ -240,7 +259,7 @@ const products: Product[] = [
     ],
   },
   {
-    icon: Bean,
+    icon: Wine,
     title: "Drinks & Spirits",
     items: "Red Wine, White Wine, Sparkling Wine, Fruit Wine, Grape Wine",
     previewSummary: "Beverage and spirits-focused lines for trade and hospitality supply.",
@@ -288,7 +307,7 @@ const products: Product[] = [
     ],
   },
   {
-    icon: Flame,
+    icon: Shirt,
     title: "Textiles",
     items: "Terry Towels, Napkins, Blankets, Cotton Dohar, Bedsheets",
     previewSummary: "Textile trade lines for apparel, home furnishing and industrial use.",
@@ -342,7 +361,7 @@ const products: Product[] = [
     ],
   },
   {
-    icon: Carrot,
+    icon: CupSoda,
     title: "Beverages",
     items: "Soda Water, Jeera Soda, Lemon Soda, Soft Drinks, Packaged Drinking Water",
     previewSummary: "Beverage-focused supply for daily consumption and retail channels.",
@@ -390,7 +409,7 @@ const products: Product[] = [
     ],
   },
   {
-    icon: Apple,
+    icon: Cog,
     title: "Engineering Goods",
     items:
       "Available on enquiry - industrial components, hardware, and allied engineering products sourced from Maharashtra's manufacturing belt",
@@ -436,7 +455,7 @@ const products: Product[] = [
     ],
   },
   {
-    icon: Package,
+    icon: Gift,
     title: "Seasonal Products",
     items:
       "Ganpati / Ganapati Murtis, Festive Decorative Items, Puja Essentials, Cultural Artefacts",
@@ -484,7 +503,7 @@ const products: Product[] = [
     ],
   },
   {
-    icon: Sparkles,
+    icon: Droplets,
     title: "Honey",
     items:
       "Floral, infused, and specialty honey varietals sourced from Indian bee belts for export-ready supply.",
@@ -560,6 +579,22 @@ const products: Product[] = [
   },
 ] as const;
 
+const productsStructuredData = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Our Product Portfolio",
+  url: `${SITE_URL}/products`,
+  mainEntity: {
+    "@type": "ItemList",
+    name: "Product Categories",
+    itemListElement: products.map((product, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: product.title,
+    })),
+  },
+});
+
 function ProductsPage() {
   const [activeProduct, setActiveProduct] = useState<(typeof products)[number]>(products[0]);
   const [carouselPage, setCarouselPage] = useState(0);
@@ -591,12 +626,16 @@ function ProductsPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: productsStructuredData }}
+      />
       <SiteHeader />
       <main className="flex-1">
         <PageBreadcrumbHero
-          title="Export-Ready Farm Products"
+          title="Our Product Portfolio"
           crumbLabel="Products"
-          description="Browse our core agri categories sourced from India and prepared for dependable domestic and international trade."
+          description="Directly sourced from verified producers across India - compliant, export-ready, and available for domestic and international orders."
           image={productsBreadcrumbBanner}
           imagePosition="object-[74%_center]"
         />
@@ -674,11 +713,15 @@ function ProductsPage() {
                                     key={item.name}
                                     className="overflow-hidden rounded-[1.45rem] border border-border/60 bg-card"
                                   >
-                                    <img
-                                      src={item.image}
-                                      alt={item.name}
-                                      className="h-[230px] w-full object-cover object-center"
-                                    />
+                                    <div className="flex h-[230px] items-center justify-center bg-background/80 p-2">
+                                      <img
+                                        src={item.image}
+                                        alt={item.name}
+                                        loading="lazy"
+                                        decoding="async"
+                                        className="h-full w-full object-contain object-center"
+                                      />
+                                    </div>
                                   </article>
                                 ))}
                               </div>
@@ -705,18 +748,19 @@ function ProductsPage() {
                                 className={`mt-3 ${
                                   activeProduct.detailItemLayout === "grid" &&
                                   section.label === "Products"
-                                    ? "grid grid-cols-1 gap-2 sm:grid-cols-2"
+                                    ? "grid grid-cols-1 gap-2"
                                     : "flex flex-wrap gap-2"
                                 }`}
                               >
                                 {section.items.map((item) => (
                                   <span
                                     key={item}
+                                    title={item}
                                     className={`${
                                       activeProduct.detailItemLayout === "grid" &&
                                       section.label === "Products"
-                                        ? "w-full rounded-2xl border border-border/70 bg-secondary/50 px-3 py-2 text-[12px] leading-5 text-foreground/80"
-                                        : "w-full rounded-full border border-border/70 bg-secondary/50 px-3 py-1 text-[12px] text-foreground/80"
+                                        ? "block w-full whitespace-normal break-words rounded-2xl border border-border/70 bg-secondary/50 px-3 py-2 text-[12px] leading-5 text-foreground/80"
+                                        : "block w-full whitespace-normal break-words rounded-2xl border border-border/70 bg-secondary/50 px-3 py-2 text-[12px] leading-5 text-foreground/80"
                                     }`}
                                   >
                                     {item}
@@ -735,11 +779,15 @@ function ProductsPage() {
                           key={item.name}
                           className="overflow-hidden rounded-[1.7rem] border border-border/60 bg-background"
                         >
-                          <img
-                            src={item.image}
-                            alt={item.name}
-                            className="h-40 w-full object-cover object-center"
-                          />
+                          <div className="flex h-40 items-center justify-center bg-background/80 p-2">
+                            <img
+                              src={item.image}
+                              alt={item.name}
+                              loading="lazy"
+                              decoding="async"
+                              className="h-full w-full object-contain object-center"
+                            />
+                          </div>
                           <div className="p-4 md:p-5">
                             <h4 className="font-serif text-xl text-foreground md:text-2xl">
                               {item.name}
@@ -767,3 +815,4 @@ function ProductsPage() {
     </div>
   );
 }
+

@@ -50,7 +50,7 @@ export function PageBreadcrumbHero({
         }}
       />
 
-      <div className="relative max-w-7xl mx-auto px-5 md:px-8 py-14 md:py-18">
+      <div className="relative mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16 lg:py-20">
         <div className="max-w-2xl">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-white/88 backdrop-blur-sm">
             <Sprout className="h-3.5 w-3.5 text-gold" />
@@ -71,7 +71,7 @@ export function PageBreadcrumbHero({
             </BreadcrumbList>
           </Breadcrumb>
 
-          <h1 className="mt-5 font-serif text-4xl leading-[1.02] text-white md:text-5xl lg:text-[3.6rem]">
+          <h1 className="mt-5 font-serif text-3xl leading-[1.04] text-white sm:text-4xl md:text-5xl lg:text-[3.6rem]">
             {title}
           </h1>
           <p className="mt-4 max-w-xl text-base leading-relaxed text-white/82 md:text-lg">

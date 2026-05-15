@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import ekviraLogo from "@/assets/ekvira-logo.jpeg";
 import { Button } from "@/components/ui/button";
 
 const nav = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About" },
-  { to: "/products", label: "Products", mobileLabel: "Products & Services" },
+  { to: "/products", label: "Products" },
 ] as const;
 
 export function SiteHeader() {
@@ -71,12 +71,7 @@ export function SiteHeader() {
                 className="flex w-full items-center justify-start gap-2 px-3 py-2.5 rounded-lg text-foreground/85 hover:bg-accent"
                 activeProps={{ className: "text-primary font-medium bg-accent" }}
               >
-                <span className="whitespace-nowrap">{n.mobileLabel ?? n.label}</span>
-                {n.to === "/products" ? (
-                  <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-border/70 bg-background text-foreground/70">
-                    <ChevronDown className="h-3.5 w-3.5" />
-                  </span>
-                ) : null}
+                <span className="whitespace-nowrap">{n.label}</span>
               </Link>
             ))}
             <Button

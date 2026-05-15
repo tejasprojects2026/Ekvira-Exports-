@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { type ReactNode } from "react";
-import { ArrowRight, BadgeCheck, MapPin, MoveRight, Sprout } from "lucide-react";
+import { ArrowRight, Sprout } from "lucide-react";
 import heroImg from "@/assets/hero-agri.jpg";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -11,12 +11,12 @@ const trustPoints = [
   "India and GCC buyer focus",
 ] as const;
 
-const productTags = ["Grains", "Spices", "Pulses", "Fresh Produce"] as const;
+const productTags = ["Vegetables & Fruits", "Grains & Spices", "Beverages", "Textiles"] as const;
 
 const bannerMetrics = [
-  { value: "20+", label: "Product Lines" },
-  { value: "24h", label: "Reply Window" },
-  { value: "GCC", label: "Core Region" },
+  { value: "40+", label: "Products" },
+  { value: "24hr", label: "Enquiry Response" },
+  { value: "Farm-to-Port", label: "Handling" },
 ] as const;
 
 function SlideFrame({
@@ -29,7 +29,7 @@ function SlideFrame({
   imagePosition?: string;
 }) {
   return (
-    <section className="relative h-[480px] overflow-hidden bg-[#1f3115] text-white sm:h-[540px] md:h-[600px] lg:h-[660px] xl:h-[720px]">
+    <section className="relative min-h-[700px] overflow-hidden bg-[#1f3115] text-white sm:min-h-[700px] md:min-h-[620px] lg:min-h-[660px] xl:min-h-[720px]">
       <img
         src={heroImg}
         alt="Agricultural produce ready for export"
@@ -70,32 +70,25 @@ function GlassPanel({ children, className }: { children: ReactNode; className?: 
   );
 }
 
-function RouteStrip() {
-  return (
-    <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.18em] text-white/72">
-      <span className="inline-flex items-center gap-2">
-        <MapPin className="h-4 w-4 text-gold" />
-        Pune, India
-      </span>
-      <MoveRight className="hidden h-4 w-4 text-white/45 sm:block" />
-      <span className="inline-flex items-center gap-2">
-        <BadgeCheck className="h-4 w-4 text-gold" />
-        India and GCC buyers
-      </span>
-    </div>
-  );
-}
-
 function MetricRow() {
   return (
-    <div className="grid grid-cols-3 gap-3">
+    <div className="grid grid-cols-3 gap-2 sm:gap-3">
       {bannerMetrics.map((metric) => (
         <div
           key={metric.label}
-          className="rounded-[1.35rem] border border-white/12 bg-white/10 px-3 py-4 text-center"
+          className="rounded-[1.2rem] border border-white/12 bg-white/10 px-2.5 py-3 text-center sm:rounded-[1.35rem] sm:px-3 sm:py-4"
         >
-          <div className="font-serif text-2xl text-white sm:text-3xl">{metric.value}</div>
-          <div className="mt-1 text-[10px] uppercase tracking-[0.18em] text-white/68 sm:text-[11px]">
+          <div
+            className={cn(
+              "font-serif text-white whitespace-nowrap",
+              metric.value.length > 6
+                ? "text-[clamp(0.95rem,4vw,1.45rem)] sm:text-[1.6rem]"
+                : "text-[clamp(1.55rem,7.6vw,2.05rem)] sm:text-3xl",
+            )}
+          >
+            {metric.value}
+          </div>
+          <div className="mt-1 text-[9px] uppercase tracking-[0.14em] text-white/68 sm:text-[11px] sm:tracking-[0.18em]">
             {metric.label}
           </div>
         </div>
@@ -117,7 +110,7 @@ function OverviewSlide() {
             Agri Export - Pune, India
           </span>
 
-          <h1 className="mt-4 font-serif text-5xl leading-[0.96] text-white sm:text-6xl lg:text-7xl xl:text-[5.6rem]">
+          <h1 className="mt-4 font-serif text-4xl leading-[0.98] text-white sm:text-5xl lg:text-7xl xl:text-[5.6rem]">
             From India's <span className="italic text-gold">Fields</span> to Global Markets
           </h1>
 
@@ -158,16 +151,15 @@ function OverviewSlide() {
           </div>
         </div>
 
-        <div className="w-full max-w-[30rem] lg:justify-self-end">
+        <div className="w-full max-w-[37rem] lg:justify-self-end">
           <GlassPanel className="space-y-5">
-            <RouteStrip />
             <div className="space-y-3">
               <div className="font-serif text-2xl text-white sm:text-3xl">
-                Export-ready categories with cleaner digital presentation
+                Range. Reliability. Reach.
               </div>
               <p className="text-sm leading-relaxed text-white/78 sm:text-[15px]">
-                The current banner content is now arranged as a proper full-width hero with stronger
-                hierarchy, cleaner spacing, and a more premium first impression.
+                Directly sourced from verified producers across India - compliant,
+                export-ready, and available for domestic and international orders.
               </p>
             </div>
 

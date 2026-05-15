@@ -1,5 +1,5 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { useState, type FocusEvent } from "react";
+import { useState, type FocusEvent, type FormEvent } from "react";
 import {
   FileText,
   ArrowRight,
@@ -45,19 +45,48 @@ import beveragesImage from "@/assets/category-images/beverages.jpg";
 import engineeringGoodsImage from "@/assets/category-images/engineering-goods.jpg";
 import seasonalProductsImage from "@/assets/category-images/seasonal-products.jpg";
 import honeyImage from "@/assets/category-images/honey.jpg";
+import heroAgriImage from "@/assets/hero-agri.jpg";
+import { SITE_NAME, SITE_URL, toAbsoluteUrl } from "@/lib/seo";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Ekvira Export House - From India's Fields to Global Markets" },
+      { title: `${SITE_NAME} | Export-Ready Agri Products from India` },
       {
         name: "description",
         content:
-          "Pune-based merchant trading firm connecting Indian agri and farm produce with India and Middle East buyers.",
+          "Export-ready vegetables, fruits, grains, beverages, textiles, honey, and seasonal products sourced across India with compliant documentation and fast enquiry response.",
       },
+      {
+        name: "keywords",
+        content:
+          "agri exports India, Indian farm products exporter, vegetables and fruits export, grains and spices export, GCC export supplier, Pune export house",
+      },
+      { property: "og:title", content: `${SITE_NAME} | Export-Ready Agri Products from India` },
+      {
+        property: "og:description",
+        content:
+          "Directly sourced from verified producers across India - compliant, export-ready, and available for domestic and international orders.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: SITE_URL },
+      { property: "og:image", content: toAbsoluteUrl(heroAgriImage) },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: `${SITE_NAME} | Export-Ready Agri Products from India` },
+      {
+        name: "twitter:description",
+        content:
+          "Directly sourced from verified producers across India - compliant, export-ready, and available for domestic and international orders.",
+      },
+      { name: "twitter:image", content: toAbsoluteUrl(heroAgriImage) },
+    ],
+    links: [
+      { rel: "canonical", href: SITE_URL },
     ],
   }),
   component: HomePage,
 });
+
+const WEB3FORMS_ACCESS_KEY = "543a22a9-2917-4f2b-a11a-7bf2907e51dc";
 
 const highlights = [
   { icon: Globe2, title: "Middle East & India", sub: "Key Markets" },
@@ -164,6 +193,27 @@ const whyChooseUs = [
   },
 ] as const;
 
+const homeStructuredData = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Our Product Portfolio",
+  url: SITE_URL,
+  about: {
+    "@type": "Organization",
+    name: SITE_NAME,
+    url: SITE_URL,
+  },
+  mainEntity: {
+    "@type": "ItemList",
+    name: "Export Categories",
+    itemListElement: categories.map((category, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: category.title,
+    })),
+  },
+});
+
 type Category = (typeof categories)[number];
 
 function CategoryCard({ category }: { category: Category }) {
@@ -206,6 +256,8 @@ function CategoryCard({ category }: { category: Category }) {
           <img
             src={category.image}
             alt={category.title}
+            loading="lazy"
+            decoding="async"
             className="h-full w-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,250,240,0.08)_0%,rgba(18,16,10,0.06)_45%,rgba(18,16,10,0.58)_100%)]" />
@@ -254,8 +306,65 @@ function CategoryCard({ category }: { category: Category }) {
 }
 
 function HomePage() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
+
+  const handleContactSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (isSubmitting) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    formData.append("access_key", WEB3FORMS_ACCESS_KEY);
+    formData.append("subject", "New enquiry from Ekvira Export House website");
+    formData.append("from_name", "Ekvira Export House Website");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+      const result = (await response.json()) as {
+        success?: boolean;
+        message?: string;
+      };
+
+      if (response.ok && result.success) {
+        setSubmitStatus({
+          type: "success",
+          message: "Thanks. Your enquiry has been sent successfully.",
+        });
+        form.reset();
+      } else {
+        setSubmitStatus({
+          type: "error",
+          message: result.message || "We couldn't send the enquiry. Please try again.",
+        });
+      }
+    } catch {
+      setSubmitStatus({
+        type: "error",
+        message: "Network issue while sending enquiry. Please try again in a moment.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: homeStructuredData }}
+      />
       <SiteHeader />
       <main className="flex-1">
         <section className="relative overflow-hidden">
@@ -368,20 +477,9 @@ function HomePage() {
             <div className="mt-12 grid lg:grid-cols-5 gap-8">
               <form
                 className="lg:col-span-3 bg-card rounded-3xl border border-border p-6 md:p-10 soft-shadow-lg"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const fd = new FormData(e.currentTarget);
-                  const getValue = (key: string) => fd.get(key)?.toString().trim() || "-";
-                  const name = getValue("name");
-                  const subject = encodeURIComponent(
-                    `Enquiry from ${name === "-" ? "Website" : name}`,
-                  );
-                  const body = encodeURIComponent(
-                    `Name: ${name}\nCompany: ${getValue("company")}\nEmail: ${getValue("email")}\nPhone: ${getValue("phone")}\nLocation: ${getValue("location")}\nCategory: ${getValue("category")}\nProduct Interest: ${getValue("product")}\n\nMessage:\n${getValue("message")}`,
-                  );
-                  window.location.href = `mailto:ekviraexporthouse@gmail.com?subject=${subject}&body=${body}`;
-                }}
+                onSubmit={handleContactSubmit}
               >
+                <input type="checkbox" name="botcheck" className="hidden" tabIndex={-1} />
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div className="space-y-2">
                     <Label htmlFor="name">Name *</Label>
@@ -472,10 +570,23 @@ function HomePage() {
                 <Button
                   type="submit"
                   size="lg"
+                  disabled={isSubmitting}
                   className="mt-6 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 h-12 px-7"
                 >
-                  Send Enquiry <ArrowRight className="h-4 w-4" />
+                  {isSubmitting ? "Sending..." : "Send Enquiry"}{" "}
+                  <ArrowRight className="h-4 w-4" />
                 </Button>
+                {submitStatus ? (
+                  <p
+                    className={`mt-4 text-sm ${
+                      submitStatus.type === "success"
+                        ? "text-emerald-600"
+                        : "text-destructive"
+                    }`}
+                  >
+                    {submitStatus.message}
+                  </p>
+                ) : null}
               </form>
 
               <div className="lg:col-span-2 space-y-6">

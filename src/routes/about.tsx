@@ -20,25 +20,38 @@ import { PageBreadcrumbHero } from "@/components/PageBreadcrumbHero";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Button } from "@/components/ui/button";
+import { SITE_NAME, SITE_URL, toAbsoluteUrl } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About - Ekvira Export House" },
+      { title: `About | ${SITE_NAME}` },
       {
         name: "description",
         content:
-          "Pune-based merchant trading firm specializing in agri and farm exports to India and the Middle East.",
+          "Learn about Ekvira Export House, our sourcing process, compliance-first documentation, and trusted agri export partnerships from India.",
       },
-      { property: "og:title", content: "About Ekvira Export House" },
+      { property: "og:title", content: `About | ${SITE_NAME}` },
       {
         property: "og:description",
         content:
           "Your trusted agri trading partner - bridging Indian farms with global markets.",
       },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: `${SITE_URL}/about` },
+      { property: "og:image", content: toAbsoluteUrl(aboutBreadcrumbBanner) },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: `About | ${SITE_NAME}` },
+      {
+        name: "twitter:description",
+        content:
+          "Learn about Ekvira Export House, our sourcing process, compliance-first documentation, and trusted agri export partnerships from India.",
+      },
+      { name: "twitter:image", content: toAbsoluteUrl(aboutBreadcrumbBanner) },
     ],
+    links: [{ rel: "canonical", href: `${SITE_URL}/about` }],
   }),
   component: AboutPage,
 });
@@ -111,7 +124,7 @@ const supplierStory = [
   {
     icon: BadgeCheck,
     step: "STEP 3",
-    title: "Certificates",
+    title: "Compliances",
     desc: "",
     accent: "#ef6251",
     bubbleClass: "lg:left-[58%] lg:top-[61%]",
@@ -129,18 +142,31 @@ const supplierStory = [
   },
 ] as const;
 
-const certificates = ["IEC", "Spice Board in India", "APEDA", "FSSAI", "ISO"] as const;
+const certificates = ["IEC", "Spice Board of India", "APEDA", "FSSAI", "ISO"] as const;
 
 const stats = [
-  { value: "20+", label: "Product Categories" },
-  { value: "10+", label: "Source States in India" },
-  { value: "GCC", label: "Primary Export Region" },
-  { value: "100%", label: "Compliance Focus" },
+  { value: "40+", label: "Products Across Categories" },
+  { value: "10+", label: "Countries We Export To" },
+  { value: "$30B+", label: "India's Annual Agri Export Market" },
+  { value: "100%", label: "Compliance & Documentation Focus" },
 ];
+
+const aboutStructuredData = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  name: `About ${SITE_NAME}`,
+  url: `${SITE_URL}/about`,
+  description:
+    "Pune-based merchant trading firm specializing in agricultural and farm exports with compliance-first processes.",
+});
 
 function AboutPage() {
   return (
     <div className="min-h-screen flex flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: aboutStructuredData }}
+      />
       <SiteHeader />
       <main className="flex-1">
         <PageBreadcrumbHero
@@ -383,6 +409,8 @@ function AboutPage() {
 
                   {supplierStory.map((step) => {
                     const showCertificates = "showCertificates" in step && step.showCertificates;
+                    const isLargeBubble = Boolean(step.bubbleSizeClass);
+                    const isSupplierManagement = step.title === "Supplier Management";
 
                     return (
                       <div
@@ -396,6 +424,7 @@ function AboutPage() {
                             className={cn(
                               "relative flex h-[220px] w-[220px] flex-col items-center justify-center rounded-full border border-black/5 bg-[linear-gradient(180deg,rgba(255,255,255,0.97)_0%,rgba(243,241,238,0.92)_100%)] px-6 text-center shadow-[0_24px_45px_-28px_rgba(0,0,0,0.45)]",
                               step.bubbleSizeClass,
+                              isSupplierManagement ? "px-8" : "",
                             )}
                           >
                           <div
@@ -422,12 +451,21 @@ function AboutPage() {
                             className={cn(
                               "mt-2.5 font-serif text-[1.65rem] leading-none text-foreground",
                               step.bubbleSizeClass ? "text-[1.5rem] leading-[0.94]" : "",
+                              isSupplierManagement ? "max-w-[10ch] text-[1.45rem] leading-[0.98]" : "",
                             )}
                           >
                             {step.title}
                           </div>
                           {!showCertificates ? (
-                            <p className="mt-2.5 max-w-[16ch] text-[12px] leading-5 text-muted-foreground">
+                            <p
+                              className={cn(
+                                "mt-2.5 text-muted-foreground",
+                                isLargeBubble
+                                  ? "max-w-[18.5ch] text-[13px] leading-[1.5]"
+                                  : "max-w-[16ch] text-[12px] leading-5",
+                                isSupplierManagement ? "max-w-[19.5ch]" : "",
+                              )}
+                            >
                               {step.desc}
                             </p>
                           ) : null}
