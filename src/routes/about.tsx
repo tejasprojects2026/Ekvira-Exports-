@@ -107,7 +107,7 @@ const supplierStory = [
     icon: Search,
     step: "STEP 1",
     title: "Finding suppliers",
-    desc: "We begin by finding suppliers who can provide the best goods and services.",
+    desc: "We begin by finding suppliers who can provide the best goods.",
     accent: "#78d7cf",
     bubbleClass: "lg:left-[24%] lg:top-[84%]",
     bubbleSizeClass: undefined,
@@ -172,7 +172,7 @@ function AboutPage() {
         <PageBreadcrumbHero
           title="About Ekvira Export House"
           crumbLabel="About"
-          description="A Pune-based agri export partner focused on trusted sourcing, compliant trade, and long-term buyer relationships."
+          description="A Pune-based merchant trading partner focused on trusted sourcing, compliant trade, and long-term buyer relationships."
           image={aboutBreadcrumbBanner}
           imagePosition="object-[72%_center]"
         />
@@ -199,10 +199,10 @@ function AboutPage() {
             <div className="mt-8 grid items-start gap-14 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
               <div>
               <p className="mt-6 text-justify text-lg leading-relaxed text-muted-foreground">
-                Ekvira Export House is a Pune-based merchant trading firm specializing in
-                the import and export of agricultural and farm products. We bridge Indian
-                farmers and suppliers with domestic buyers and international markets, with
-                a strong focus on the Middle East region.
+                Ekvira Export House is a Pune-based merchant trading firm specialising in
+                multi-category import and export. We bridge verified Indian producers and
+                suppliers with domestic buyers and international markets, with a strong
+                focus on the Middle East region.
               </p>
               <p className="mt-4 text-justify text-lg leading-relaxed text-muted-foreground">
                 We are committed to quality, compliance, and building long-term trade
@@ -300,8 +300,7 @@ function AboutPage() {
                   What sets us apart
                 </h2>
                 <p className="mt-4 max-w-sm text-sm leading-6 text-muted-foreground md:text-base md:leading-7">
-                  Finding, evaluating, and onboarding suppliers that can provide the best goods and
-                  services.
+                  Finding, evaluating, and onboarding suppliers that can provide the best goods.
                 </p>
               </div>
 

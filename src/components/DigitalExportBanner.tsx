@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const trustPoints = [
-  "20+ export-ready categories",
-  "24-hour enquiry response",
-  "India and GCC buyer focus",
+  "20+ Export-Ready Categories",
+  "India & GCC Buyer Focus",
+  "100% Compliance Focus",
 ] as const;
 
 const productTags = ["Vegetables & Fruits", "Grains & Spices", "Beverages", "Textiles"] as const;
@@ -115,9 +115,20 @@ function OverviewSlide() {
           </h1>
 
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/82 sm:text-lg lg:text-[1.15rem]">
-            Ekvira Export House connects Indian agri and farm produce with buyers across India and
-            the Middle East with trust, quality, and speed.
+            Ekvira Export House is a merchant trader connecting Indian producers with buyers across
+            India and the Middle East - with trust, quality, and speed.
           </p>
+
+          <div className="mt-5 flex flex-wrap gap-3">
+            {trustPoints.map((item) => (
+              <span
+                key={item}
+                className="whitespace-nowrap rounded-full border border-white/15 bg-white/10 px-4 py-2 text-[13px] text-white/84 backdrop-blur-sm sm:text-sm"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
 
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Button
@@ -137,17 +148,6 @@ function OverviewSlide() {
             >
               <a href="mailto:ekviraexporthouse@gmail.com">Contact Us</a>
             </Button>
-          </div>
-
-          <div className="mt-5 flex flex-wrap gap-3">
-            {trustPoints.map((item) => (
-              <span
-                key={item}
-                className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm text-white/84 backdrop-blur-sm"
-              >
-                {item}
-              </span>
-            ))}
           </div>
         </div>
 

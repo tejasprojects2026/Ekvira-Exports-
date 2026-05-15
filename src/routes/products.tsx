@@ -1,6 +1,6 @@
 ﻿import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Apple, Cog, CupSoda, Droplets, Gift, Shirt, Wheat, Wine } from "lucide-react";
+import { Apple, Cog, CupSoda, Droplets, Flame, Gift, Shirt, Wheat, Wine } from "lucide-react";
 import productsBreadcrumbBanner from "@/assets/products-breadcrumb-banner.jpg";
 import vegFruitTamarindImage from "@/assets/product-page-images/Vegetables & Fruits/WhatsApp Image 2026-05-14 at 3.37.43 PM.jpeg";
 import vegFruitMuskmelonImage from "@/assets/product-page-images/Vegetables & Fruits/WhatsApp Image 2026-05-14 at 3.37.43 PM (1).jpeg";
@@ -40,6 +40,10 @@ import engineeringBearingImage from "@/assets/product-page-images/Engineering Go
 import seasonalPoojaItemsImage from "@/assets/product-page-images/Seasonal Products/WhatsApp Image 2026-05-14 at 4.41.47 PM.jpeg";
 import seasonalGaneshImage from "@/assets/product-page-images/Seasonal Products/WhatsApp Image 2026-05-14 at 4.41.47 PM (1).jpeg";
 import seasonalDecorImage from "@/assets/product-page-images/Seasonal Products/WhatsApp Image 2026-05-14 at 4.41.47 PM (2).jpeg";
+import spicesChilliPowderImage from "@/assets/product-page-images/spices/chilli powder.png";
+import spicesCorianderPowderImage from "@/assets/product-page-images/spices/coriender powder.png";
+import spicesCuminPowderImage from "@/assets/product-page-images/spices/cumin powder.png";
+import spicesTurmericPowderImage from "@/assets/product-page-images/spices/turmeric powder.png";
 import { PageBreadcrumbHero } from "@/components/PageBreadcrumbHero";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -127,6 +131,109 @@ const honeyPreviewImages = Object.entries(honeyPreviewImageModules)
   .map(([, image]) => image);
 
 const products: Product[] = [
+  {
+    icon: Flame,
+    title: "Spices",
+    items:
+      "Red Chilli Powder, Cumin Powder, Coriander Powder, Turmeric Powder, Processed Spices, Ready-to-Cook Powders, Special Gujarati Taste Masala",
+    previewSummary:
+      "Export-ready spices for foodservice, retail, and B2B buyers.",
+    previewItems: [
+      {
+        name: "Red Chilli Powder",
+        info: "",
+        image: spicesChilliPowderImage,
+      },
+      {
+        name: "Cumin Powder",
+        info: "",
+        image: spicesCuminPowderImage,
+      },
+      {
+        name: "Coriander Powder",
+        info: "",
+        image: spicesCorianderPowderImage,
+      },
+      {
+        name: "Turmeric Powder",
+        info: "",
+        image: spicesTurmericPowderImage,
+      },
+    ],
+    previewStyle: "carousel",
+    details: [
+      {
+        label: "Products",
+        items: [
+          "Red Chilli Powder",
+          "Cumin Powder",
+          "Coriander Powder",
+          "Turmeric Powder",
+          "All Types of Processed Spices",
+          "Ready-to-Cook Powders",
+          "Special Gujarati Taste Masala",
+          "All spices sourcing - Pune, Nandurbar, Buldhana, Malegaon, Nashik, Sambhajinagar, Sangli, Satara, Solapur, and special Gujarati taste masala from Ahmedabad, Surat, Rajkot, Mahuva, Unjha, and Vyara.",
+        ],
+      },
+      {
+        label: "Source Cities",
+        items: [
+          "Pune",
+          "Nandurbar",
+          "Buldhana",
+          "Malegaon",
+          "Nashik",
+          "Sambhajinagar",
+          "Sangli",
+          "Satara",
+          "Solapur",
+          "Ahmedabad",
+          "Surat",
+          "Rajkot",
+          "Mahuva",
+          "Unjha",
+          "Vyara",
+        ],
+      },
+      {
+        label: "Targeted Countries",
+        items: [
+          "USA",
+          "UK",
+          "UAE",
+          "Saudi Arabia",
+          "Oman",
+          "Bangladesh",
+          "Sri Lanka",
+          "Vietnam",
+          "Malaysia",
+          "Europe",
+          "Australia",
+          "Japan",
+          "Thailand",
+          "Philippines",
+        ],
+      },
+      {
+        label: "Targeted Industries",
+        items: [
+          "Turmeric Powder: Health Sector, Hotel Industry, Grocery Store Wholesalers",
+          "Hotel Industry",
+          "Restaurants",
+          "Sauce Manufacturers",
+          "Procurement Departments",
+          "Merchant Traders",
+          "Grocery Stores and Wholesalers",
+          "Super Stores",
+          "B2B Platforms",
+        ],
+      },
+      {
+        label: "Customer Age Group",
+        items: ["25 to 85"],
+      },
+    ],
+  },
   {
     icon: Apple,
     title: "Vegetables & Fruits",

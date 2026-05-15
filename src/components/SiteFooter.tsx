@@ -9,9 +9,21 @@ const socialLinks = [
     href: "https://www.google.com/maps/search/?api=1&query=A-620%2C%20Gera%27s%20Imperium%20Gateway%2C%20Nashik%20Phata%2C%20PCMC%2C%20Pune%20-%20411034",
     icon: FaMapMarkerAlt,
   },
-  { label: "Instagram", href: "#", icon: FaInstagram },
-  { label: "Facebook", href: "#", icon: FaFacebookF },
-  { label: "LinkedIn", href: "#", icon: FaLinkedinIn },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/ekviraexporthouse/",
+    icon: FaInstagram,
+  },
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/profile.php?id=61572108069048",
+    icon: FaFacebookF,
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/ekvira-export-house-pvt-ltd/",
+    icon: FaLinkedinIn,
+  },
 ] as const;
 
 const footerCategories = [

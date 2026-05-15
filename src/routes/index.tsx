@@ -45,6 +45,7 @@ import beveragesImage from "@/assets/category-images/beverages.jpg";
 import engineeringGoodsImage from "@/assets/category-images/engineering-goods.jpg";
 import seasonalProductsImage from "@/assets/category-images/seasonal-products.jpg";
 import honeyImage from "@/assets/category-images/honey.jpg";
+import spicesCategoryImage from "@/assets/product-page-images/spices/chilli powder.png";
 import heroAgriImage from "@/assets/hero-agri.jpg";
 import { SITE_NAME, SITE_URL, toAbsoluteUrl } from "@/lib/seo";
 export const Route = createFileRoute("/")({
@@ -54,7 +55,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Export-ready vegetables, fruits, grains, beverages, textiles, honey, and seasonal products sourced across India with compliant documentation and fast enquiry response.",
+          "Export-ready vegetables, fruits, spices, beverages, textiles, honey, and seasonal products sourced across India with compliant documentation and fast enquiry response.",
       },
       {
         name: "keywords",
@@ -111,9 +112,18 @@ const categories = [
     ],
   },
   {
+    icon: Flame,
+    title: "Spices",
+    // eyebrow: "Category 02",
+    image: spicesCategoryImage,
+    description:
+      "Ground and processed spice visuals for hospitality, retail, wholesale, and export-led sourcing.",
+    products: ["Red chilli powder", "Cumin powder", "Coriander powder", "Turmeric powder"],
+  },
+  {
     icon: BottleWine,
     title: "Drinks & Spirits",
-    // eyebrow: "Category 02",
+    // eyebrow: "Category 03",
     image: drinksSpiritsImage,
     description:
       "Bar and spirits imagery suited to hospitality, retail, and premium trade presentations.",
@@ -546,6 +556,7 @@ function HomePage() {
                         <SelectItem value="Grains & Cereals">Grains & Cereals</SelectItem>
                         <SelectItem value="Pulses & Legumes">Pulses & Legumes</SelectItem>
                         <SelectItem value="Vegetables & Fruits">Vegetables & Fruits</SelectItem>
+                        <SelectItem value="Spices">Spices</SelectItem>
                         <SelectItem value="Drinks & Spirits">Drinks & Spirits</SelectItem>
                         <SelectItem value="Textiles">Textiles</SelectItem>
                         <SelectItem value="Beverages">Beverages</SelectItem>
