@@ -48,9 +48,8 @@ export function SiteFooter() {
               className="block h-12 w-auto md:h-16"
             />
           </Link>
-          <div className="mt-2 text-[10px] uppercase tracking-[0.18em] opacity-70">Pune - India</div>
           <p className="mt-2 text-sm opacity-80 max-w-xs">
-            Bridging Indian Agri to Global Markets.
+            Rooted in India. Reaching the World.
           </p>
 
           <div className="mt-4">

@@ -172,7 +172,6 @@ const products: Product[] = [
           "All Types of Processed Spices",
           "Ready-to-Cook Powders",
           "Special Gujarati Taste Masala",
-          "All spices sourcing - Pune, Nandurbar, Buldhana, Malegaon, Nashik, Sambhajinagar, Sangli, Satara, Solapur, and special Gujarati taste masala from Ahmedabad, Surat, Rajkot, Mahuva, Unjha, and Vyara.",
         ],
       },
       {
@@ -213,24 +212,6 @@ const products: Product[] = [
           "Thailand",
           "Philippines",
         ],
-      },
-      {
-        label: "Targeted Industries",
-        items: [
-          "Turmeric Powder: Health Sector, Hotel Industry, Grocery Store Wholesalers",
-          "Hotel Industry",
-          "Restaurants",
-          "Sauce Manufacturers",
-          "Procurement Departments",
-          "Merchant Traders",
-          "Grocery Stores and Wholesalers",
-          "Super Stores",
-          "B2B Platforms",
-        ],
-      },
-      {
-        label: "Customer Age Group",
-        items: ["25 to 85"],
       },
     ],
   },

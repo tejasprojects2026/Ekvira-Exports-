@@ -8,7 +8,6 @@ import { cn } from "@/lib/utils";
 const trustPoints = [
   "20+ Export-Ready Categories",
   "India & GCC Buyer Focus",
-  "100% Compliance Focus",
 ] as const;
 
 const productTags = ["Vegetables & Fruits", "Grains & Spices", "Beverages", "Textiles"] as const;
@@ -151,7 +150,7 @@ function OverviewSlide() {
           </div>
         </div>
 
-        <div className="w-full max-w-[37rem] lg:justify-self-end">
+        <div className="w-full max-w-[37rem] lg:mt-5 lg:justify-self-end xl:mt-6">
           <GlassPanel className="space-y-5">
             <div className="space-y-3">
               <div className="font-serif text-2xl text-white sm:text-3xl">

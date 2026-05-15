@@ -43,7 +43,7 @@ import drinksSpiritsImage from "@/assets/category-images/drinks-spirits.jpg";
 import textilesImage from "@/assets/category-images/textiles.jpg";
 import beveragesImage from "@/assets/category-images/beverages.jpg";
 import engineeringGoodsImage from "@/assets/category-images/engineering-goods.jpg";
-import seasonalProductsImage from "@/assets/category-images/seasonal-products.jpg";
+import seasonalProductsImage from "@/assets/product-page-images/Seasonal Products/WhatsApp Image 2026-05-14 at 4.41.47 PM (2).jpeg";
 import honeyImage from "@/assets/category-images/honey.jpg";
 import spicesCategoryImage from "@/assets/product-page-images/spices/chilli powder.png";
 import heroAgriImage from "@/assets/hero-agri.jpg";
