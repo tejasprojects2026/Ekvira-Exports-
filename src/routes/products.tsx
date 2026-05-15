@@ -499,8 +499,7 @@ const products: Product[] = [
   {
     icon: Cog,
     title: "Engineering Goods",
-    items:
-      "Available on enquiry - industrial components, hardware, and allied engineering products sourced from Maharashtra's manufacturing belt",
+    items: "Industrial Components, Hardware, Allied Engineering Products",
     previewSummary: "Industrial and hardware lines for fabrication, assembly and repair.",
     previewItems: [
       {
@@ -519,7 +518,7 @@ const products: Product[] = [
         image: engineeringGearImage,
       },
       {
-        name: "Maharashtra Belt",
+        name: "Industrial Assemblies",
         info: "",
         image: engineeringBearingHousingImage,
       },
@@ -528,9 +527,7 @@ const products: Product[] = [
     details: [
       {
         label: "Products",
-        items: [
-          "Available on enquiry - industrial components, hardware, and allied engineering products sourced from Maharashtra's manufacturing belt.",
-        ],
+        items: ["Industrial Components", "Hardware", "Allied Engineering Products"],
       },
       {
         label: "Sourced From",
