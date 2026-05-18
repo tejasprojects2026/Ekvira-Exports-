@@ -75,11 +75,11 @@ function MetricRow() {
       {bannerMetrics.map((metric) => (
         <div
           key={metric.label}
-          className="rounded-[1.2rem] border border-white/12 bg-white/10 px-2.5 py-3 text-center sm:rounded-[1.35rem] sm:px-3 sm:py-4"
+          className="flex flex-col items-center justify-center rounded-[1.2rem] border border-white/12 bg-white/10 px-2.5 py-3 text-center sm:rounded-[1.35rem] sm:px-3 sm:py-4"
         >
           <div
             className={cn(
-              "font-serif text-white whitespace-nowrap",
+              "w-full whitespace-nowrap text-center font-serif text-white",
               metric.value.length > 6
                 ? "text-[clamp(0.95rem,4vw,1.45rem)] sm:text-[1.6rem]"
                 : "text-[clamp(1.55rem,7.6vw,2.05rem)] sm:text-3xl",
@@ -87,7 +87,7 @@ function MetricRow() {
           >
             {metric.value}
           </div>
-          <div className="mt-1 text-[9px] uppercase tracking-[0.14em] text-white/68 sm:text-[11px] sm:tracking-[0.18em]">
+          <div className="mt-1 w-full text-center text-[9px] uppercase tracking-[0.14em] text-white/68 sm:text-[11px] sm:tracking-[0.18em]">
             {metric.label}
           </div>
         </div>

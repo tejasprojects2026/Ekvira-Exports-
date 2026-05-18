@@ -159,6 +159,15 @@ export function SiteFooter() {
                   </dd>
                 </div>
               </div>
+              <div className="flex items-start gap-2">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold/80" />
+                <div className="flex flex-wrap items-center gap-2 text-[13px]">
+                  <dt className="shrink-0 opacity-65">IEC</dt>
+                  <dd className="break-all font-medium text-primary-foreground/95">
+                    AAJCE6086E
+                  </dd>
+                </div>
+              </div>
             </dl>
           </div>
         </div>

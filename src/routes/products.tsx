@@ -499,7 +499,7 @@ const products: Product[] = [
   {
     icon: Cog,
     title: "Engineering Goods",
-    items: "Industrial Components, Hardware, Allied Engineering Products",
+    items: "Available on enquiry, Industrial Components, Hardware & Allied Engineering Products",
     previewSummary: "Industrial and hardware lines for fabrication, assembly and repair.",
     previewItems: [
       {
@@ -527,7 +527,11 @@ const products: Product[] = [
     details: [
       {
         label: "Products",
-        items: ["Industrial Components", "Hardware", "Allied Engineering Products"],
+        items: [
+          "Available on enquiry",
+          "Industrial Components",
+          "Hardware & Allied Engineering Products",
+        ],
       },
       {
         label: "Sourced From",
