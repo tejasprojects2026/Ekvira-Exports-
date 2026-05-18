@@ -48,6 +48,13 @@ const markets: Market[] = [
   },
   {
     greeting: "Hello",
+    label: "Canada",
+    mapName: "Canada",
+    coordinates: [-106.3468, 56.1304],
+    type: "country",
+  },
+  {
+    greeting: "Hello",
     label: "Edison, New Jersey",
     mapName: "Edison, New Jersey",
     coordinates: [-74.412, 40.518],

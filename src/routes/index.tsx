@@ -242,7 +242,7 @@ function CategoryCard({ category }: { category: Category }) {
       role="button"
       tabIndex={0}
       aria-expanded={isOpen}
-      className="group relative aspect-square min-h-[21rem] w-full cursor-pointer overflow-hidden rounded-[2rem] border border-border/70 bg-card text-left soft-shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-primary/25 hover:soft-shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 md:min-h-[23rem]"
+      className="group relative aspect-square min-h-[18rem] w-full cursor-pointer overflow-hidden rounded-[2rem] border border-border/70 bg-card text-left soft-shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-primary/25 hover:soft-shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 sm:min-h-[20rem] md:min-h-[21rem] xl:min-h-[23rem]"
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
       onFocus={() => setIsOpen(true)}
@@ -260,7 +260,7 @@ function CategoryCard({ category }: { category: Category }) {
       }}
     >
       <div
-        className={`absolute inset-0 p-4 transition-all duration-300 md:p-5 ${
+        className={`absolute inset-0 p-3.5 transition-all duration-300 sm:p-4 md:p-5 ${
           isOpen ? "pointer-events-none opacity-0 scale-[0.98]" : "opacity-100"
         }`}
       >
@@ -273,8 +273,8 @@ function CategoryCard({ category }: { category: Category }) {
             className="h-full w-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,250,240,0.08)_0%,rgba(18,16,10,0.06)_45%,rgba(18,16,10,0.58)_100%)]" />
-          <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
-            <h3 className="font-serif text-3xl leading-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.45)] md:text-4xl">
+          <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 md:p-6">
+            <h3 className="font-serif text-[1.75rem] leading-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.45)] sm:text-3xl md:text-4xl">
               {category.title}
             </h3>
           </div>
@@ -286,9 +286,9 @@ function CategoryCard({ category }: { category: Category }) {
           isOpen ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 translate-y-4"
         }`}
       >
-        <div className="flex h-full w-full flex-col rounded-[2rem] border border-border/70 bg-secondary/55 p-5 md:p-6">
+        <div className="flex h-full w-full flex-col rounded-[2rem] border border-border/70 bg-secondary/55 p-4 sm:p-5 md:p-6">
           <div className="flex items-start justify-between gap-5">
-            <span className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gold/18 text-primary transition-colors">
+            <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gold/18 text-primary transition-colors sm:h-14 sm:w-14">
               <category.icon className="h-7 w-7" />
             </span>
           </div>
@@ -296,12 +296,14 @@ function CategoryCard({ category }: { category: Category }) {
           {/* <div className="mt-6 text-xs font-medium uppercase tracking-[0.22em] text-primary">
             {category.eyebrow}
           </div> */}
-          <h3 className="mt-3 font-serif text-3xl leading-tight text-foreground md:text-4xl">
+          <h3 className="mt-3 font-serif text-2xl leading-tight text-foreground sm:text-3xl md:text-4xl">
             {category.title}
           </h3>
-          <p className="mt-4 max-w-xl leading-7 text-muted-foreground">{category.description}</p>
+          <p className="mt-4 max-w-xl text-sm leading-6 text-muted-foreground sm:leading-7">
+            {category.description}
+          </p>
 
-          <div className="mt-auto flex justify-center pt-6 pb-1">
+          <div className="mt-auto flex justify-center pb-1 pt-5 sm:pt-6">
             <Button
               asChild
               size="sm"
@@ -415,17 +417,17 @@ function HomePage() {
                 <Flame className="h-3.5 w-3.5" />
                 Product Categories
               </span>
-              <h2 className="mt-5 font-serif text-4xl md:text-5xl lg:text-6xl text-foreground leading-[1.05]">
+              <h2 className="mt-5 font-serif text-3xl text-foreground leading-[1.05] sm:text-4xl md:text-5xl lg:text-6xl">
                 Explore Our <span className="italic text-primary">Categories</span>
               </h2>
-              <p className="mt-4 text-muted-foreground text-lg max-w-2xl">
+              <p className="mt-4 max-w-2xl text-base text-muted-foreground sm:text-lg">
                 Browse export-ready categories sourced through trusted Indian growers, processors,
                 and manufacturers, including fresh produce, spices, beverages, textiles, honey, and
                 engineering goods.
               </p>
             </div>
 
-            <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            <div className="mt-10 grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
               {categories.map((category) => (
                 <CategoryCard key={category.title} category={category} />
               ))}
@@ -436,7 +438,7 @@ function HomePage() {
         <section>
           <div className="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20">
             <div className="mb-10 text-center max-w-3xl mx-auto">
-              <h2 className="mt-5 font-serif text-4xl md:text-5xl lg:text-6xl text-foreground leading-[1.05]">
+              <h2 className="mt-5 font-serif text-3xl text-foreground leading-[1.05] sm:text-4xl md:text-5xl lg:text-6xl">
                 Why Choose <span className="italic text-primary">Us</span>
               </h2>
             </div>
@@ -456,7 +458,7 @@ function HomePage() {
                       {String(index + 1).padStart(2, "0")}
                     </span>
                   </div>
-                  <h3 className="mt-5 max-w-[12ch] font-serif text-[2rem] leading-[1.02] text-foreground">
+                  <h3 className="mt-5 max-w-none font-serif text-[1.75rem] leading-[1.02] text-foreground sm:max-w-[12ch] sm:text-[2rem]">
                     {item.title}
                   </h3>
                   <p className="mt-4 text-sm leading-7 text-muted-foreground">{item.description}</p>
@@ -478,18 +480,18 @@ function HomePage() {
           />
           <div className="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24">
             <div className="text-center max-w-2xl mx-auto">
-              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground leading-[1.05]">
+              <h2 className="font-serif text-3xl text-foreground leading-[1.05] sm:text-4xl md:text-5xl lg:text-6xl">
                 Let's Start a <span className="italic text-primary">Conversation</span>
               </h2>
-              <p className="mt-4 text-muted-foreground text-lg">
+              <p className="mt-4 text-base text-muted-foreground sm:text-lg">
                 Tell us what you're sourcing - we'll get back within 24 hours with availability,
                 samples, and indicative pricing.
               </p>
             </div>
 
-            <div className="mt-12 grid lg:grid-cols-5 gap-8">
+            <div className="mt-12 grid gap-8 xl:grid-cols-5">
               <form
-                className="lg:col-span-3 bg-card rounded-3xl border border-border p-6 md:p-10 soft-shadow-lg"
+                className="rounded-3xl border border-border bg-card p-5 soft-shadow-lg sm:p-6 md:p-8 xl:col-span-3 xl:p-10"
                 onSubmit={handleContactSubmit}
               >
                 <input type="checkbox" name="botcheck" className="hidden" tabIndex={-1} />
@@ -585,7 +587,7 @@ function HomePage() {
                   type="submit"
                   size="lg"
                   disabled={isSubmitting}
-                  className="mt-6 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 h-12 px-7"
+                  className="mt-6 h-12 w-full rounded-full bg-primary px-7 text-primary-foreground hover:bg-primary/90 sm:w-auto"
                 >
                   {isSubmitting ? "Sending..." : "Send Enquiry"} <ArrowRight className="h-4 w-4" />
                 </Button>
@@ -600,7 +602,7 @@ function HomePage() {
                 ) : null}
               </form>
 
-              <div className="lg:col-span-2 space-y-6">
+              <div className="space-y-6 xl:col-span-2">
                 <div className="bg-primary text-primary-foreground rounded-3xl p-8 soft-shadow-lg">
                   <h3 className="font-serif text-2xl">Reach Us Directly</h3>
                   <ul className="mt-6 space-y-5 text-sm">

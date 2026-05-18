@@ -9,7 +9,7 @@ export function FloatingWhatsAppButton() {
   const [canHover, setCanHover] = useState(false);
   const closeTimeoutRef = useRef<ReturnType<typeof window.setTimeout> | null>(null);
   const optionClassName =
-    "min-w-[7.75rem] rounded-xl border border-white/75 bg-white/95 px-3.5 py-2 text-center text-xs font-medium text-slate-800 shadow-[0_12px_24px_rgba(37,211,102,0.18)] backdrop-blur-md transition-colors hover:bg-[#25D366]/10 focus-visible:bg-[#25D366]/10 focus-visible:outline-none active:bg-[#25D366]/14";
+    "min-w-[6.75rem] max-w-[calc(100vw-1.5rem)] rounded-xl border border-white/75 bg-white/95 px-3 py-2 text-center text-xs font-medium text-slate-800 shadow-[0_12px_24px_rgba(37,211,102,0.18)] backdrop-blur-md transition-colors hover:bg-[#25D366]/10 focus-visible:bg-[#25D366]/10 focus-visible:outline-none active:bg-[#25D366]/14 sm:min-w-[7.75rem] sm:px-3.5";
 
   const clearCloseTimeout = () => {
     if (closeTimeoutRef.current !== null) {
@@ -63,7 +63,7 @@ export function FloatingWhatsAppButton() {
       ) : null}
 
       <div
-        className="fixed right-4 z-50 sm:right-5"
+        className="fixed right-3 z-50 sm:right-4"
         style={{ bottom: "max(1rem, env(safe-area-inset-bottom))" }}
       >
         <div
@@ -121,7 +121,7 @@ export function FloatingWhatsAppButton() {
 
             setIsOpen((open) => !open);
           }}
-          className="relative inline-flex h-14 w-14 items-center justify-center rounded-full border-4 border-white/85 bg-[#25D366] text-white soft-shadow-lg transition-all hover:-translate-y-1 hover:scale-[1.03] hover:bg-[#1ebe5d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:h-15 sm:w-15"
+          className="relative inline-flex h-12 w-12 items-center justify-center rounded-full border-4 border-white/85 bg-[#25D366] text-white soft-shadow-lg transition-all hover:-translate-y-1 hover:scale-[1.03] hover:bg-[#1ebe5d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:h-14 sm:w-14 md:h-15 md:w-15"
         >
           <span
             className="absolute inset-0 rounded-full bg-[#25D366]/35 blur-md"
@@ -133,7 +133,7 @@ export function FloatingWhatsAppButton() {
           />
           <span className="relative flex h-full w-full items-center justify-center rounded-full">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/18 opacity-70" />
-            <SiWhatsapp className="relative h-6 w-6 sm:h-7 sm:w-7" />
+            <SiWhatsapp className="relative h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7" />
           </span>
         </button>
       </div>

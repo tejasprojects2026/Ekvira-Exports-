@@ -205,7 +205,7 @@ function AboutPage() {
           />
           <div className="max-w-7xl mx-auto px-5 md:px-8 pt-12 md:pt-16 pb-12 md:pb-16">
             <div className="mx-auto max-w-6xl text-center">
-              <h2 className="font-serif text-4xl tracking-[-0.03em] text-foreground md:text-5xl lg:whitespace-nowrap lg:text-[clamp(3rem,4.2vw,4.5rem)] lg:leading-[0.96]">
+              <h2 className="font-serif text-3xl tracking-[-0.03em] text-foreground sm:text-4xl md:text-5xl lg:text-[clamp(3rem,4.2vw,4.5rem)] lg:leading-[0.96]">
                 Your Trusted <span className="italic text-primary">Trading</span>{" "}
                 <span className="relative inline-block">
                   Partner
@@ -214,24 +214,24 @@ function AboutPage() {
               </h2>
             </div>
 
-            <div className="mt-8 grid items-start gap-14 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+            <div className="mt-8 grid items-start gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-14">
               <div>
-                <p className="mt-6 text-justify text-lg leading-relaxed text-muted-foreground">
+                <p className="mt-6 text-justify text-base leading-relaxed text-muted-foreground sm:text-lg">
                   Ekvira Export House is a Pune-based merchant trading firm specialising in
                   multi-category import and export. We bridge verified Indian producers and
                   suppliers with domestic buyers and international markets, with a strong focus on
                   the Middle East region.
                 </p>
-                <p className="mt-4 text-justify text-lg leading-relaxed text-muted-foreground">
+                <p className="mt-4 text-justify text-base leading-relaxed text-muted-foreground sm:text-lg">
                   We are committed to quality, compliance, and building long-term trade
                   relationships - one shipment, one partnership at a time.
                 </p>
 
-                <div className="mt-8 flex flex-wrap gap-3">
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                   <Button
                     asChild
                     size="lg"
-                    className="rounded-full bg-gold text-gold-foreground hover:bg-gold/90 px-6 h-12"
+                    className="h-12 w-full rounded-full bg-gold px-6 text-gold-foreground hover:bg-gold/90 sm:w-auto"
                   >
                     <Link to="/products">
                       See What We Trade <ArrowRight className="h-4 w-4" />
@@ -241,7 +241,7 @@ function AboutPage() {
                     asChild
                     size="lg"
                     variant="outline"
-                    className="rounded-full border-primary text-primary hover:bg-primary hover:text-primary-foreground px-6 h-12"
+                    className="h-12 w-full rounded-full border-primary px-6 text-primary hover:bg-primary hover:text-primary-foreground sm:w-auto"
                   >
                     <a
                       href={`mailto:${BUSINESS_EMAIL}`}
@@ -253,7 +253,7 @@ function AboutPage() {
                 </div>
               </div>
 
-              <div className="bg-card soft-shadow-lg rounded-3xl p-8 md:p-10 border border-border/60">
+              <div className="rounded-3xl border border-border/60 bg-card p-6 soft-shadow-lg md:p-8 lg:p-10">
                 <div className="flex items-center justify-between">
                   <h3 className="font-serif text-2xl text-foreground">What sets us apart</h3>
                   <span className="text-[10px] uppercase tracking-[0.2em] text-primary bg-primary/10 px-2.5 py-1 rounded-full">
@@ -326,7 +326,7 @@ function AboutPage() {
               </div>
 
               <div className="relative">
-                <div className="lg:hidden">
+                <div className="xl:hidden">
                   <div className="rounded-[2.1rem] border border-border/60 bg-card p-5 soft-shadow-lg md:p-6">
                     <div className="grid gap-3.5 md:gap-4">
                       {supplierStory.map((step) => {
@@ -381,7 +381,7 @@ function AboutPage() {
                   </div>
                 </div>
 
-                <div className="relative hidden min-h-[980px] overflow-hidden rounded-[3rem] bg-transparent lg:block">
+                <div className="relative hidden min-h-[980px] overflow-hidden rounded-[3rem] bg-transparent xl:block">
                   <svg
                     viewBox="0 0 1200 1120"
                     className="absolute inset-0 h-full w-full"
@@ -418,12 +418,12 @@ function AboutPage() {
                     />
                   </svg>
 
-                  <div className="absolute left-[10%] top-[78%] hidden h-28 w-6 lg:block">
+                  <div className="absolute left-[10%] top-[78%] hidden h-28 w-6 xl:block">
                     <div className="absolute left-1/2 top-0 h-full w-[3px] -translate-x-1/2 rounded-full bg-[#c7c7cf]" />
                     <div className="absolute left-1/2 top-2 h-0 w-0 -translate-x-1/2 border-b-[16px] border-l-[24px] border-b-transparent border-l-[#f04f4f]" />
                   </div>
 
-                  <div className="absolute right-[8%] top-[13%] hidden h-28 w-6 lg:block">
+                  <div className="absolute right-[8%] top-[13%] hidden h-28 w-6 xl:block">
                     <div className="absolute left-1/2 top-0 h-full w-[3px] -translate-x-1/2 rounded-full bg-[#c7c7cf]" />
                     <div className="absolute left-1/2 top-2 h-0 w-0 -translate-x-1/2 border-b-[16px] border-l-[24px] border-b-transparent border-l-[#f04f4f]" />
                   </div>
@@ -549,7 +549,7 @@ function AboutPage() {
                   className="group relative overflow-hidden rounded-[1.9rem] border border-white/10 bg-white/8 p-6 text-center backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:bg-white/12 hover:shadow-[0_28px_60px_-28px_rgba(0,0,0,0.55)] md:p-7"
                 >
                   <div className="absolute inset-x-6 top-0 h-1 rounded-b-full bg-gradient-to-r from-gold/10 via-gold to-gold/10" />
-                  <div className="mt-5 font-serif text-5xl md:text-6xl leading-none text-gold">
+                  <div className="mt-5 font-serif text-4xl leading-none text-gold sm:text-5xl md:text-6xl">
                     {s.value}
                   </div>
                   <div className="mt-4 text-sm md:text-base font-medium text-white/84">
@@ -562,7 +562,7 @@ function AboutPage() {
         </section>
 
         <section className="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20">
-          <div className="rounded-3xl bg-card border border-border/60 soft-shadow-lg p-10 md:p-14 text-center">
+          <div className="rounded-3xl border border-border/60 bg-card p-6 text-center soft-shadow-lg sm:p-8 md:p-10 lg:p-14">
             <h3 className="font-serif text-3xl md:text-4xl text-foreground">
               Looking for a reliable Indian agri partner?
             </h3>
@@ -570,11 +570,11 @@ function AboutPage() {
               Tell us what you need - we'll source it, certify it, and ship it from India to your
               door.
             </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
               <Button
                 asChild
                 size="lg"
-                className="rounded-full bg-gold text-gold-foreground hover:bg-gold/90 px-6 h-12"
+                className="h-12 w-full rounded-full bg-gold px-6 text-gold-foreground hover:bg-gold/90 sm:w-auto"
               >
                 <Link to="/" hash="contact">
                   Get a Quote <ArrowRight className="h-4 w-4" />
@@ -584,7 +584,7 @@ function AboutPage() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="rounded-full border-primary text-primary hover:bg-primary hover:text-primary-foreground px-6 h-12"
+                className="h-12 w-full rounded-full border-primary px-6 text-primary hover:bg-primary hover:text-primary-foreground sm:w-auto"
               >
                 <Link to="/products">Browse Products</Link>
               </Button>

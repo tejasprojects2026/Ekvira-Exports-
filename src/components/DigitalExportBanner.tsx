@@ -27,7 +27,7 @@ function SlideFrame({
   imagePosition?: string;
 }) {
   return (
-    <section className="relative min-h-[700px] overflow-hidden bg-[#1f3115] text-white sm:min-h-[700px] md:min-h-[620px] lg:min-h-[660px] xl:min-h-[720px]">
+    <section className="relative min-h-[640px] overflow-hidden bg-[#1f3115] text-white sm:min-h-[680px] md:min-h-[620px] lg:min-h-[660px] xl:min-h-[720px]">
       <img
         src={heroImg}
         alt="Agricultural produce ready for export"
@@ -104,14 +104,14 @@ function OverviewSlide() {
       imagePosition="object-[68%_center]"
       overlay="bg-[linear-gradient(100deg,rgba(18,33,12,0.96)_0%,rgba(24,45,17,0.86)_42%,rgba(24,45,17,0.46)_72%,rgba(24,45,17,0.22)_100%)]"
     >
-      <div className="grid flex-1 content-start items-start gap-5 pt-6 sm:pt-8 md:pt-10 lg:grid-cols-[1.04fr_0.96fr] lg:pt-12">
+      <div className="grid flex-1 content-start items-start gap-6 pt-6 sm:pt-8 md:pt-10 lg:grid-cols-[1.04fr_0.96fr] lg:gap-8 lg:pt-12">
         <div className="max-w-3xl">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.18em] text-white/88">
             <Sprout className="h-3.5 w-3.5 text-gold" />
             Agri Export - Pune, India
           </span>
 
-          <h1 className="mt-4 font-serif text-4xl leading-[0.98] text-white sm:text-5xl lg:text-7xl xl:text-[5.6rem]">
+          <h1 className="mt-4 font-serif text-[clamp(2.85rem,11vw,4.1rem)] leading-[0.98] text-white sm:text-5xl lg:text-7xl xl:text-[5.6rem]">
             From India's <span className="italic text-gold">Fields</span> to Global Markets
           </h1>
 
@@ -124,7 +124,7 @@ function OverviewSlide() {
             {trustPoints.map((item) => (
               <span
                 key={item}
-                className="whitespace-nowrap rounded-full border border-white/15 bg-white/10 px-4 py-2 text-[13px] text-white/84 backdrop-blur-sm sm:text-sm"
+                className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-center text-[13px] text-white/84 backdrop-blur-sm sm:text-sm"
               >
                 {item}
               </span>
@@ -135,7 +135,7 @@ function OverviewSlide() {
             <Button
               asChild
               size="lg"
-              className="h-12 rounded-full bg-gold px-6 text-gold-foreground hover:bg-gold/90"
+              className="h-12 w-full rounded-full bg-gold px-6 text-gold-foreground hover:bg-gold/90 sm:w-auto"
             >
               <Link to="/products">
                 Explore Our Products <ArrowRight className="h-4 w-4" />
@@ -145,7 +145,7 @@ function OverviewSlide() {
               asChild
               size="lg"
               variant="outline"
-              className="h-12 rounded-full border-white/20 bg-white/10 px-6 text-white hover:bg-white hover:text-primary"
+              className="h-12 w-full rounded-full border-white/20 bg-white/10 px-6 text-white hover:bg-white hover:text-primary sm:w-auto"
             >
               <a
                 href={`mailto:${BUSINESS_EMAIL}`}
@@ -169,11 +169,11 @@ function OverviewSlide() {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               {productTags.map((tag) => (
                 <div
                   key={tag}
-                  className="rounded-[1.2rem] border border-white/12 bg-white/10 px-4 py-3 text-sm font-medium uppercase tracking-[0.16em] text-white/84"
+                  className="rounded-[1.2rem] border border-white/12 bg-white/10 px-4 py-3 text-xs font-medium uppercase tracking-[0.16em] text-white/84 sm:text-sm"
                 >
                   {tag}
                 </div>

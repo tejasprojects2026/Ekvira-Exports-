@@ -746,18 +746,18 @@ function ProductsPage() {
             <span className="text-xs uppercase tracking-[0.22em] text-primary font-medium">
               What We Trade
             </span>
-            <h2 className="mt-3 font-serif text-4xl md:text-5xl lg:text-6xl leading-[1.05] text-foreground">
+            <h2 className="mt-3 font-serif text-3xl leading-[1.05] text-foreground sm:text-4xl md:text-5xl lg:text-6xl">
               Farm Fresh. <span className="italic text-primary">Export Ready.</span>
             </h2>
           </div>
 
-          <div className="mt-14 grid gap-8 lg:grid-cols-[minmax(0,0.94fr)_minmax(360px,1.06fr)] lg:items-start">
-            <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 lg:ml-auto lg:max-w-2xl lg:pr-6 xl:pr-10">
+          <div className="mt-10 grid gap-6 sm:mt-12 md:mt-14 md:gap-8 xl:grid-cols-[minmax(0,0.92fr)_minmax(320px,1.08fr)] xl:items-start">
+            <div className="mx-auto flex w-full max-w-3xl flex-col gap-5 sm:gap-6 xl:ml-auto xl:max-w-2xl xl:pr-6 2xl:pr-10">
               {products.map((p) => (
                 <button
                   key={p.title}
                   type="button"
-                  className={`group flex w-full items-center gap-5 rounded-[2rem] border bg-card p-6 text-left soft-shadow transition-all hover:-translate-y-1 hover:soft-shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 ${
+                  className={`group flex w-full items-center gap-4 rounded-[2rem] border bg-card p-5 text-left soft-shadow transition-all hover:-translate-y-1 hover:soft-shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 sm:gap-5 sm:p-6 ${
                     activeProduct.title === p.title
                       ? "border-primary/25 ring-1 ring-primary/15"
                       : "border-border/60"
@@ -766,31 +766,33 @@ function ProductsPage() {
                   onFocus={() => setActiveProduct(p)}
                   onClick={() => setActiveProduct(p)}
                 >
-                  <span className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gold/20 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                    <p.icon className="h-7 w-7" />
+                  <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gold/20 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground sm:h-14 sm:w-14">
+                    <p.icon className="h-6 w-6 sm:h-7 sm:w-7" />
                   </span>
 
                   <div className="min-w-0 flex-1">
-                    <h3 className="mt-2 font-serif text-2xl text-foreground">{p.title}</h3>
+                    <h3 className="mt-2 font-serif text-xl text-foreground sm:text-2xl">
+                      {p.title}
+                    </h3>
                     <p className="mt-2 text-sm leading-6 text-muted-foreground">{p.items}</p>
                   </div>
                 </button>
               ))}
             </div>
 
-            <aside className="lg:sticky lg:top-8">
-              <div className="rounded-[2.2rem] border border-border/70 bg-card p-5 soft-shadow-lg md:p-6">
+            <aside className="xl:sticky xl:top-8">
+              <div className="rounded-[2.2rem] border border-border/70 bg-card p-4 soft-shadow-lg sm:p-5 md:p-6">
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
-                    <h3 className="mt-4 font-serif text-3xl leading-tight text-foreground">
+                    <h3 className="mt-3 font-serif text-2xl leading-tight text-foreground sm:mt-4 sm:text-3xl">
                       {activeProduct.title}
                     </h3>
                     <p className="mt-3 max-w-md text-sm leading-6 text-muted-foreground">
                       {activeProduct.previewSummary}
                     </p>
                   </div>
-                  <span className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gold/20 text-primary">
-                    <activeProduct.icon className="h-7 w-7" />
+                  <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gold/20 text-primary sm:h-14 sm:w-14">
+                    <activeProduct.icon className="h-6 w-6 sm:h-7 sm:w-7" />
                   </span>
                 </div>
 
@@ -803,14 +805,14 @@ function ProductsPage() {
                           style={{ transform: `translateX(-${carouselPage * 100}%)` }}
                         >
                           {activeCarouselPages.map((page, pageIndex) => (
-                            <div key={pageIndex} className="min-w-full p-3">
-                              <div className="grid grid-cols-2 gap-3">
+                            <div key={pageIndex} className="min-w-full p-2 sm:p-3">
+                              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                                 {page.map((item) => (
                                   <article
                                     key={item.name}
                                     className="overflow-hidden rounded-[1.45rem] border border-border/60 bg-card"
                                   >
-                                    <div className="flex h-[230px] items-center justify-center bg-background/80 p-2">
+                                    <div className="flex h-[190px] items-center justify-center bg-background/80 p-2 sm:h-[230px]">
                                       <img
                                         src={item.image}
                                         alt={item.name}
@@ -830,7 +832,9 @@ function ProductsPage() {
                       {activeProductDetails ? (
                         <div
                           className={`mt-5 grid gap-4 ${
-                            activeProductDetails.length === 1 ? "grid-cols-1" : "md:grid-cols-3"
+                            activeProductDetails.length === 1
+                              ? "grid-cols-1"
+                              : "sm:grid-cols-2 lg:grid-cols-3"
                           }`}
                         >
                           {activeProductDetails.map((section) => (
@@ -876,7 +880,7 @@ function ProductsPage() {
                           key={item.name}
                           className="overflow-hidden rounded-[1.7rem] border border-border/60 bg-background"
                         >
-                          <div className="flex h-40 items-center justify-center bg-background/80 p-2">
+                          <div className="flex h-32 items-center justify-center bg-background/80 p-2 sm:h-40">
                             <img
                               src={item.image}
                               alt={item.name}
