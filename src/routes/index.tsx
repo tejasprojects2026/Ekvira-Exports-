@@ -52,6 +52,7 @@ import {
   BUSINESS_EMAIL,
   BUSINESS_HOURS_LABEL,
   BUSINESS_PHONE,
+  GOOGLE_MAPS_URL,
   SITE_NAME,
   SITE_URL,
   toAbsoluteUrl,
@@ -608,11 +609,16 @@ function HomePage() {
                   <ul className="mt-6 space-y-5 text-sm">
                     <li className="flex gap-3">
                       <MapPin className="h-5 w-5 text-gold shrink-0 mt-0.5" />
-                      <span className="text-primary-foreground/90 leading-relaxed">
+                      <a
+                        href={GOOGLE_MAPS_URL}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-primary-foreground/90 leading-relaxed transition-colors hover:text-gold"
+                      >
                         A-620, Gera's Imperium Gateway,
                         <br />
                         Nashik Phata, PCMC, Pune - 411034
-                      </span>
+                      </a>
                     </li>
                     <li className="flex gap-3">
                       <Mail className="h-5 w-5 text-gold shrink-0 mt-0.5" />
