@@ -71,17 +71,20 @@ function GlassPanel({ children, className }: { children: ReactNode; className?: 
 
 function MetricRow() {
   return (
-    <div className="grid grid-cols-3 gap-2 sm:gap-3">
-      {bannerMetrics.map((metric) => (
+    <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3">
+      {bannerMetrics.map((metric, index) => (
         <div
           key={metric.label}
-          className="flex flex-col items-center justify-center rounded-[1.2rem] border border-white/12 bg-white/10 px-2.5 py-3 text-center sm:rounded-[1.35rem] sm:px-3 sm:py-4"
+          className={cn(
+            "flex flex-col items-center justify-center rounded-[1.2rem] border border-white/12 bg-white/10 px-2.5 py-3 text-center sm:rounded-[1.35rem] sm:px-3 sm:py-4",
+            index === bannerMetrics.length - 1 ? "col-span-2 sm:col-span-1" : "",
+          )}
         >
           <div
             className={cn(
-              "w-full whitespace-nowrap text-center font-serif text-white",
+              "w-full text-center font-serif leading-tight text-white",
               metric.value.length > 6
-                ? "text-[clamp(0.95rem,4vw,1.45rem)] sm:text-[1.6rem]"
+                ? "text-[clamp(1rem,4.2vw,1.45rem)] sm:text-[1.6rem]"
                 : "text-[clamp(1.55rem,7.6vw,2.05rem)] sm:text-3xl",
             )}
           >
