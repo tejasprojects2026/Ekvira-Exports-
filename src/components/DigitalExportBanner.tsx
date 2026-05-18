@@ -3,12 +3,11 @@ import { type ReactNode } from "react";
 import { ArrowRight, Sprout } from "lucide-react";
 import heroImg from "@/assets/hero-agri.jpg";
 import { Button } from "@/components/ui/button";
+import { trackContactClick } from "@/lib/analytics";
+import { BUSINESS_EMAIL } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 
-const trustPoints = [
-  "20+ Export-Ready Categories",
-  "India & GCC Buyer Focus",
-] as const;
+const trustPoints = ["20+ Export-Ready Categories", "India & GCC Buyer Focus"] as const;
 
 const productTags = ["Vegetables & Fruits", "Grains & Spices", "Beverages", "Textiles"] as const;
 
@@ -148,7 +147,12 @@ function OverviewSlide() {
               variant="outline"
               className="h-12 rounded-full border-white/20 bg-white/10 px-6 text-white hover:bg-white hover:text-primary"
             >
-              <a href="mailto:ekviraexporthouse@gmail.com">Contact Us</a>
+              <a
+                href={`mailto:${BUSINESS_EMAIL}`}
+                onClick={() => trackContactClick("email", "hero_contact")}
+              >
+                Contact Us
+              </a>
             </Button>
           </div>
         </div>
@@ -160,8 +164,8 @@ function OverviewSlide() {
                 Range. Reliability. Reach.
               </div>
               <p className="text-sm leading-relaxed text-white/78 sm:text-[15px]">
-                Directly sourced from verified producers across India - compliant,
-                export-ready, and available for domestic and international orders.
+                Directly sourced from verified producers across India - compliant, export-ready, and
+                available for domestic and international orders.
               </p>
             </div>
 

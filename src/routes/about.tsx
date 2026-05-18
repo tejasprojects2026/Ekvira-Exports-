@@ -20,9 +20,15 @@ import { PageBreadcrumbHero } from "@/components/PageBreadcrumbHero";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Button } from "@/components/ui/button";
-import { SITE_NAME, SITE_URL, toAbsoluteUrl } from "@/lib/seo";
+import { trackContactClick } from "@/lib/analytics";
+import {
+  BUSINESS_EMAIL,
+  SITE_NAME,
+  SITE_URL,
+  createBreadcrumbJsonLd,
+  toAbsoluteUrl,
+} from "@/lib/seo";
 import { cn } from "@/lib/utils";
-
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -33,15 +39,20 @@ export const Route = createFileRoute("/about")({
         content:
           "Learn about Ekvira Export House, our sourcing process, compliance-first documentation, and trusted agri export partnerships from India.",
       },
+      {
+        name: "keywords",
+        content:
+          "about Ekvira Export House, Indian exporter Pune, agri export company India, APEDA exporter Maharashtra, merchant exporter Pune",
+      },
       { property: "og:title", content: `About | ${SITE_NAME}` },
       {
         property: "og:description",
-        content:
-          "Your trusted agri trading partner - bridging Indian farms with global markets.",
+        content: "Your trusted agri trading partner - bridging Indian farms with global markets.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: `${SITE_URL}/about` },
       { property: "og:image", content: toAbsoluteUrl(aboutBreadcrumbBanner) },
+      { property: "og:image:alt", content: "Ekvira Export House about page banner" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: `About | ${SITE_NAME}` },
       {
@@ -50,6 +61,7 @@ export const Route = createFileRoute("/about")({
           "Learn about Ekvira Export House, our sourcing process, compliance-first documentation, and trusted agri export partnerships from India.",
       },
       { name: "twitter:image", content: toAbsoluteUrl(aboutBreadcrumbBanner) },
+      { name: "twitter:image:alt", content: "Ekvira Export House about page banner" },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/about` }],
   }),
@@ -151,14 +163,20 @@ const stats = [
   { value: "100%", label: "Compliance & Documentation Focus" },
 ];
 
-const aboutStructuredData = JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "AboutPage",
-  name: `About ${SITE_NAME}`,
-  url: `${SITE_URL}/about`,
-  description:
-    "Pune-based merchant trading firm specializing in agricultural and farm exports with compliance-first processes.",
-});
+const aboutStructuredData = JSON.stringify([
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: `About ${SITE_NAME}`,
+    url: `${SITE_URL}/about`,
+    description:
+      "Pune-based merchant trading firm specializing in agricultural and farm exports with compliance-first processes.",
+  },
+  createBreadcrumbJsonLd([
+    { name: "Home", item: SITE_URL },
+    { name: "About", item: `${SITE_URL}/about` },
+  ]),
+]);
 
 function AboutPage() {
   return (
@@ -198,36 +216,41 @@ function AboutPage() {
 
             <div className="mt-8 grid items-start gap-14 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
               <div>
-              <p className="mt-6 text-justify text-lg leading-relaxed text-muted-foreground">
-                Ekvira Export House is a Pune-based merchant trading firm specialising in
-                multi-category import and export. We bridge verified Indian producers and
-                suppliers with domestic buyers and international markets, with a strong
-                focus on the Middle East region.
-              </p>
-              <p className="mt-4 text-justify text-lg leading-relaxed text-muted-foreground">
-                We are committed to quality, compliance, and building long-term trade
-                relationships - one shipment, one partnership at a time.
-              </p>
+                <p className="mt-6 text-justify text-lg leading-relaxed text-muted-foreground">
+                  Ekvira Export House is a Pune-based merchant trading firm specialising in
+                  multi-category import and export. We bridge verified Indian producers and
+                  suppliers with domestic buyers and international markets, with a strong focus on
+                  the Middle East region.
+                </p>
+                <p className="mt-4 text-justify text-lg leading-relaxed text-muted-foreground">
+                  We are committed to quality, compliance, and building long-term trade
+                  relationships - one shipment, one partnership at a time.
+                </p>
 
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Button
-                  asChild
-                  size="lg"
-                  className="rounded-full bg-gold text-gold-foreground hover:bg-gold/90 px-6 h-12"
-                >
-                  <Link to="/products">
-                    See What We Trade <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="rounded-full border-primary text-primary hover:bg-primary hover:text-primary-foreground px-6 h-12"
-                >
-                  <a href="mailto:ekviraexporthouse@gmail.com">Talk to Us</a>
-                </Button>
-              </div>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Button
+                    asChild
+                    size="lg"
+                    className="rounded-full bg-gold text-gold-foreground hover:bg-gold/90 px-6 h-12"
+                  >
+                    <Link to="/products">
+                      See What We Trade <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </Button>
+                  <Button
+                    asChild
+                    size="lg"
+                    variant="outline"
+                    className="rounded-full border-primary text-primary hover:bg-primary hover:text-primary-foreground px-6 h-12"
+                  >
+                    <a
+                      href={`mailto:${BUSINESS_EMAIL}`}
+                      onClick={() => trackContactClick("email", "about_cta")}
+                    >
+                      Talk to Us
+                    </a>
+                  </Button>
+                </div>
               </div>
 
               <div className="bg-card soft-shadow-lg rounded-3xl p-8 md:p-10 border border-border/60">
@@ -276,9 +299,7 @@ function AboutPage() {
                   <v.icon className="h-6 w-6" />
                 </span>
                 <h3 className="mt-5 font-serif text-lg text-foreground">{v.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                  {v.desc}
-                </p>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{v.desc}</p>
               </div>
             ))}
           </div>
@@ -309,7 +330,8 @@ function AboutPage() {
                   <div className="rounded-[2.1rem] border border-border/60 bg-card p-5 soft-shadow-lg md:p-6">
                     <div className="grid gap-3.5 md:gap-4">
                       {supplierStory.map((step) => {
-                        const showCertificates = "showCertificates" in step && step.showCertificates;
+                        const showCertificates =
+                          "showCertificates" in step && step.showCertificates;
 
                         return (
                           <div
@@ -418,19 +440,15 @@ function AboutPage() {
                           "absolute -translate-x-1/2 -translate-y-1/2",
                           step.bubbleClass,
                         )}
+                      >
+                        <div
+                          className={cn(
+                            "relative flex h-[220px] w-[220px] flex-col items-center justify-center rounded-full border border-black/5 bg-[linear-gradient(180deg,rgba(255,255,255,0.97)_0%,rgba(243,241,238,0.92)_100%)] px-6 text-center shadow-[0_24px_45px_-28px_rgba(0,0,0,0.45)]",
+                            step.bubbleSizeClass,
+                            isSupplierManagement ? "px-8" : "",
+                          )}
                         >
-                          <div
-                            className={cn(
-                              "relative flex h-[220px] w-[220px] flex-col items-center justify-center rounded-full border border-black/5 bg-[linear-gradient(180deg,rgba(255,255,255,0.97)_0%,rgba(243,241,238,0.92)_100%)] px-6 text-center shadow-[0_24px_45px_-28px_rgba(0,0,0,0.45)]",
-                              step.bubbleSizeClass,
-                              isSupplierManagement ? "px-8" : "",
-                            )}
-                          >
-                          <div
-                            className={cn(
-                              "absolute left-1/2 -translate-x-1/2 -top-12",
-                            )}
-                          >
+                          <div className={cn("absolute left-1/2 -translate-x-1/2 -top-12")}>
                             <MapPin
                               className={cn(
                                 "drop-shadow-[0_10px_12px_rgba(0,0,0,0.18)]",
@@ -450,7 +468,9 @@ function AboutPage() {
                             className={cn(
                               "mt-2.5 font-serif text-[1.65rem] leading-none text-foreground",
                               step.bubbleSizeClass ? "text-[1.5rem] leading-[0.94]" : "",
-                              isSupplierManagement ? "max-w-[10ch] text-[1.45rem] leading-[0.98]" : "",
+                              isSupplierManagement
+                                ? "max-w-[10ch] text-[1.45rem] leading-[0.98]"
+                                : "",
                             )}
                           >
                             {step.title}
@@ -517,9 +537,8 @@ function AboutPage() {
                 Numbers that reflect our <span className="italic text-gold">export focus</span>
               </h2>
               <p className="mt-4 text-sm md:text-base text-white/72 max-w-2xl mx-auto leading-relaxed">
-                From sourcing depth to regional specialization, these metrics give a
-                quick view of the trade capability we are building around Indian
-                agricultural exports.
+                From sourcing depth to regional specialization, these metrics give a quick view of
+                the trade capability we are building around Indian agricultural exports.
               </p>
             </div>
 
@@ -548,18 +567,18 @@ function AboutPage() {
               Looking for a reliable Indian agri partner?
             </h3>
             <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
-              Tell us what you need - we'll source it, certify it, and ship it from India
-              to your door.
+              Tell us what you need - we'll source it, certify it, and ship it from India to your
+              door.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
-                <Button
-                  asChild
-                  size="lg"
-                  className="rounded-full bg-gold text-gold-foreground hover:bg-gold/90 px-6 h-12"
-                >
-                  <Link to="/" hash="contact">
-                    Get a Quote <ArrowRight className="h-4 w-4" />
-                  </Link>
+              <Button
+                asChild
+                size="lg"
+                className="rounded-full bg-gold text-gold-foreground hover:bg-gold/90 px-6 h-12"
+              >
+                <Link to="/" hash="contact">
+                  Get a Quote <ArrowRight className="h-4 w-4" />
+                </Link>
               </Button>
               <Button
                 asChild

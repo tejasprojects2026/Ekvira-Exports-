@@ -47,7 +47,7 @@ import spicesTurmericPowderImage from "@/assets/product-page-images/spices/turme
 import { PageBreadcrumbHero } from "@/components/PageBreadcrumbHero";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
-import { SITE_NAME, SITE_URL, toAbsoluteUrl } from "@/lib/seo";
+import { SITE_NAME, SITE_URL, createBreadcrumbJsonLd, toAbsoluteUrl } from "@/lib/seo";
 
 export const Route = createFileRoute("/products")({
   head: () => ({
@@ -58,6 +58,11 @@ export const Route = createFileRoute("/products")({
         content:
           "Browse export-ready products including vegetables, fruits, grains, spices, beverages, textiles, honey, seasonal products, and engineering goods sourced from India.",
       },
+      {
+        name: "keywords",
+        content:
+          "export products India, spices exporter India, fruit exporter India, honey exporter India, textiles exporter Pune, engineering goods export",
+      },
       { property: "og:title", content: `Products | ${SITE_NAME}` },
       {
         property: "og:description",
@@ -67,6 +72,7 @@ export const Route = createFileRoute("/products")({
       { property: "og:type", content: "website" },
       { property: "og:url", content: `${SITE_URL}/products` },
       { property: "og:image", content: toAbsoluteUrl(productsBreadcrumbBanner) },
+      { property: "og:image:alt", content: "Ekvira Export House products banner" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: `Products | ${SITE_NAME}` },
       {
@@ -75,6 +81,7 @@ export const Route = createFileRoute("/products")({
           "Directly sourced from verified producers across India - compliant, export-ready, and available for domestic and international orders.",
       },
       { name: "twitter:image", content: toAbsoluteUrl(productsBreadcrumbBanner) },
+      { name: "twitter:image:alt", content: "Ekvira Export House products banner" },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/products` }],
   }),
@@ -136,8 +143,7 @@ const products: Product[] = [
     title: "Spices",
     items:
       "Red Chilli Powder, Cumin Powder, Coriander Powder, Turmeric Powder, Processed Spices, Ready-to-Cook Powders, Special Gujarati Taste Masala",
-    previewSummary:
-      "Export-ready spices for foodservice, retail, and B2B buyers.",
+    previewSummary: "Export-ready spices for foodservice, retail, and B2B buyers.",
     previewItems: [
       {
         name: "Red Chilli Powder",
@@ -668,21 +674,27 @@ const products: Product[] = [
   },
 ] as const;
 
-const productsStructuredData = JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  name: "Our Product Portfolio",
-  url: `${SITE_URL}/products`,
-  mainEntity: {
-    "@type": "ItemList",
-    name: "Product Categories",
-    itemListElement: products.map((product, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: product.title,
-    })),
+const productsStructuredData = JSON.stringify([
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Our Product Portfolio",
+    url: `${SITE_URL}/products`,
+    mainEntity: {
+      "@type": "ItemList",
+      name: "Product Categories",
+      itemListElement: products.map((product, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: product.title,
+      })),
+    },
   },
-});
+  createBreadcrumbJsonLd([
+    { name: "Home", item: SITE_URL },
+    { name: "Products", item: `${SITE_URL}/products` },
+  ]),
+]);
 
 function ProductsPage() {
   const [activeProduct, setActiveProduct] = useState<(typeof products)[number]>(products[0]);
@@ -759,12 +771,9 @@ function ProductsPage() {
                   </span>
 
                   <div className="min-w-0 flex-1">
-                    
                     <h3 className="mt-2 font-serif text-2xl text-foreground">{p.title}</h3>
                     <p className="mt-2 text-sm leading-6 text-muted-foreground">{p.items}</p>
                   </div>
-
-                 
                 </button>
               ))}
             </div>
@@ -773,7 +782,6 @@ function ProductsPage() {
               <div className="rounded-[2.2rem] border border-border/70 bg-card p-5 soft-shadow-lg md:p-6">
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
-                    
                     <h3 className="mt-4 font-serif text-3xl leading-tight text-foreground">
                       {activeProduct.title}
                     </h3>
@@ -904,4 +912,3 @@ function ProductsPage() {
     </div>
   );
 }
-

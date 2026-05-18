@@ -1,13 +1,16 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import ekviraLogo from "@/assets/ekvira-logo.jpeg";
+import { GoogleAnalyticsPageTracker, GoogleAnalyticsScripts } from "@/components/GoogleAnalytics";
 import { FloatingWhatsAppButton } from "@/components/FloatingWhatsAppButton";
 import {
+  SITE_LOCALE,
   SITE_DESCRIPTION,
   SITE_NAME,
+  SITE_LOGO_URL,
   SITE_TITLE,
   SITE_URL,
+  localBusinessJsonLd,
   organizationJsonLd,
-  toAbsoluteUrl,
   websiteJsonLd,
 } from "@/lib/seo";
 
@@ -44,20 +47,25 @@ export const Route = createRootRoute({
       { name: "description", content: SITE_DESCRIPTION },
       { name: "author", content: SITE_NAME },
       { name: "robots", content: "index, follow, max-image-preview:large" },
+      { name: "format-detection", content: "telephone=no" },
       { name: "theme-color", content: "#2f5a2f" },
       { property: "og:title", content: SITE_TITLE },
       { property: "og:description", content: SITE_DESCRIPTION },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: SITE_NAME },
       { property: "og:url", content: SITE_URL },
-      { property: "og:image", content: toAbsoluteUrl(ekviraLogo) },
-      { property: "og:locale", content: "en_IN" },
+      { property: "og:image", content: SITE_LOGO_URL },
+      { property: "og:image:alt", content: `${SITE_NAME} logo` },
+      { property: "og:locale", content: SITE_LOCALE },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: SITE_TITLE },
       { name: "twitter:description", content: SITE_DESCRIPTION },
-      { name: "twitter:image", content: toAbsoluteUrl(ekviraLogo) },
+      { name: "twitter:image", content: SITE_LOGO_URL },
+      { name: "twitter:image:alt", content: `${SITE_NAME} logo` },
     ],
     links: [
+      { rel: "icon", href: ekviraLogo },
+      { rel: "apple-touch-icon", href: ekviraLogo },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
@@ -72,13 +80,18 @@ export const Route = createRootRoute({
   notFoundComponent: NotFoundComponent,
 });
 
-const rootStructuredData = JSON.stringify([organizationJsonLd, websiteJsonLd]);
+const rootStructuredData = JSON.stringify([organizationJsonLd, websiteJsonLd, localBusinessJsonLd]);
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en-IN">
       <head>
         <HeadContent />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: rootStructuredData }}
+        />
+        <GoogleAnalyticsScripts />
       </head>
       <body>
         {children}
@@ -91,11 +104,8 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   return (
     <>
+      <GoogleAnalyticsPageTracker />
       <Outlet />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: rootStructuredData }}
-      />
       <FloatingWhatsAppButton />
     </>
   );

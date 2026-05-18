@@ -1,4 +1,6 @@
-const whatsappBaseUrl = "https://wa.me/917276533359";
+import { BUSINESS_PHONE } from "@/lib/seo";
+
+const whatsappBaseUrl = `https://wa.me/${BUSINESS_PHONE.replace(/\D/g, "")}`;
 
 function buildWhatsappLink(message: string) {
   return `${whatsappBaseUrl}?text=${encodeURIComponent(message)}`;

@@ -3,6 +3,8 @@ import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import ekviraLogo from "@/assets/ekvira-logo.jpeg";
 import { Button } from "@/components/ui/button";
+import { trackContactClick } from "@/lib/analytics";
+import { BUSINESS_PHONE } from "@/lib/seo";
 
 const nav = [
   { to: "/", label: "Home" },
@@ -47,7 +49,12 @@ export function SiteHeader() {
             asChild
             className="rounded-full bg-gold text-gold-foreground hover:bg-gold/90 shadow-none px-5"
           >
-            <a href="tel:+917276533359">Enquire Now</a>
+            <a
+              href={`tel:${BUSINESS_PHONE}`}
+              onClick={() => trackContactClick("phone", "header_cta")}
+            >
+              Enquire Now
+            </a>
           </Button>
         </div>
 
@@ -78,7 +85,12 @@ export function SiteHeader() {
               asChild
               className="mt-2 rounded-full bg-gold text-gold-foreground hover:bg-gold/90"
             >
-              <a href="tel:+917276533359">Enquire Now</a>
+              <a
+                href={`tel:${BUSINESS_PHONE}`}
+                onClick={() => trackContactClick("phone", "mobile_header_cta")}
+              >
+                Enquire Now
+              </a>
             </Button>
           </div>
         </div>

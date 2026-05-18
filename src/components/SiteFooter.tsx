@@ -2,26 +2,34 @@ import { Link } from "@tanstack/react-router";
 import { MapPin } from "lucide-react";
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaMapMarkerAlt } from "react-icons/fa";
 import ekviraLogo from "@/assets/ekvira-logo.jpeg";
+import { trackContactClick } from "@/lib/analytics";
+import {
+  BUSINESS_EMAIL,
+  BUSINESS_PHONE,
+  BUSINESS_PHONE_ALT,
+  GOOGLE_MAPS_URL,
+  SOCIAL_URLS,
+} from "@/lib/seo";
 
 const socialLinks = [
   {
     label: "Location",
-    href: "https://www.google.com/maps/search/?api=1&query=A-620%2C%20Gera%27s%20Imperium%20Gateway%2C%20Nashik%20Phata%2C%20PCMC%2C%20Pune%20-%20411034",
+    href: GOOGLE_MAPS_URL,
     icon: FaMapMarkerAlt,
   },
   {
     label: "Instagram",
-    href: "https://www.instagram.com/ekviraexporthouse/",
+    href: SOCIAL_URLS.instagram,
     icon: FaInstagram,
   },
   {
     label: "Facebook",
-    href: "https://www.facebook.com/profile.php?id=61572108069048",
+    href: SOCIAL_URLS.facebook,
     icon: FaFacebookF,
   },
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/company/ekvira-export-house-pvt-ltd/",
+    href: SOCIAL_URLS.linkedIn,
     icon: FaLinkedinIn,
   },
 ] as const;
@@ -42,15 +50,9 @@ export function SiteFooter() {
       <div className="max-w-7xl mx-auto grid gap-6 px-5 py-9 md:grid-cols-2 md:px-8 md:py-10 xl:grid-cols-4 xl:gap-8">
         <div className="xl:pr-6">
           <Link to="/" className="inline-flex" aria-label="Ekvira Export House home">
-            <img
-              src={ekviraLogo}
-              alt="Ekvira Export House"
-              className="block h-12 w-auto md:h-16"
-            />
+            <img src={ekviraLogo} alt="Ekvira Export House" className="block h-12 w-auto md:h-16" />
           </Link>
-          <p className="mt-2 text-sm opacity-80 max-w-xs">
-            Rooted in India. Reaching the World.
-          </p>
+          <p className="mt-2 text-sm opacity-80 max-w-xs">Rooted in India. Reaching the World.</p>
 
           <div className="mt-4">
             <div className="text-[11px] uppercase tracking-[0.18em] opacity-70">Follow Us</div>
@@ -118,20 +120,32 @@ export function SiteFooter() {
             </li>
             <li className="flex items-start gap-2">
               <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold/80" />
-              <a href="mailto:ekviraexporthouse@gmail.com" className="hover:text-gold break-all">
-                ekviraexporthouse@gmail.com
+              <a
+                href={`mailto:${BUSINESS_EMAIL}`}
+                onClick={() => trackContactClick("email", "footer_email")}
+                className="hover:text-gold break-all"
+              >
+                {BUSINESS_EMAIL}
               </a>
             </li>
             <li className="flex items-start gap-2">
               <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold/80" />
-              <a href="tel:+917276533359" className="hover:text-gold">
-                +91 7276533359
+              <a
+                href={`tel:${BUSINESS_PHONE}`}
+                onClick={() => trackContactClick("phone", "footer_primary_phone")}
+                className="hover:text-gold"
+              >
+                {BUSINESS_PHONE}
               </a>
             </li>
             <li className="flex items-start gap-2">
               <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold/80" />
-              <a href="tel:+917875803175" className="hover:text-gold">
-                +91 7875803175
+              <a
+                href={`tel:${BUSINESS_PHONE_ALT}`}
+                onClick={() => trackContactClick("phone", "footer_secondary_phone")}
+                className="hover:text-gold"
+              >
+                {BUSINESS_PHONE_ALT}
               </a>
             </li>
           </ul>
@@ -163,9 +177,7 @@ export function SiteFooter() {
                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold/80" />
                 <div className="flex flex-wrap items-center gap-2 text-[13px]">
                   <dt className="shrink-0 opacity-65">IEC</dt>
-                  <dd className="break-all font-medium text-primary-foreground/95">
-                    AAJCE6086E
-                  </dd>
+                  <dd className="break-all font-medium text-primary-foreground/95">AAJCE6086E</dd>
                 </div>
               </div>
             </dl>

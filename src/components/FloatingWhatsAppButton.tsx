@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { SiWhatsapp } from "react-icons/si";
+import { trackContactClick } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 import { buyerWhatsappLink, supplierWhatsappLink, whatsappLink } from "@/lib/whatsapp";
 
@@ -75,12 +76,14 @@ export function FloatingWhatsAppButton() {
               : "pointer-events-none translate-y-2 scale-95 opacity-0",
           )}
         >
-        
           <a
             href={supplierWhatsappLink}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={closeMenu}
+            onClick={() => {
+              trackContactClick("whatsapp", "floating_supplier");
+              closeMenu();
+            }}
             className={optionClassName}
           >
             Supplier
@@ -89,7 +92,10 @@ export function FloatingWhatsAppButton() {
             href={buyerWhatsappLink}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={closeMenu}
+            onClick={() => {
+              trackContactClick("whatsapp", "floating_buyer");
+              closeMenu();
+            }}
             className={optionClassName}
           >
             Buyer
@@ -107,6 +113,7 @@ export function FloatingWhatsAppButton() {
           onClick={() => {
             clearCloseTimeout();
             if (canHover) {
+              trackContactClick("whatsapp", "floating_primary");
               window.open(whatsappLink, "_blank", "noopener,noreferrer");
               setIsOpen(false);
               return;
@@ -116,8 +123,14 @@ export function FloatingWhatsAppButton() {
           }}
           className="relative inline-flex h-14 w-14 items-center justify-center rounded-full border-4 border-white/85 bg-[#25D366] text-white soft-shadow-lg transition-all hover:-translate-y-1 hover:scale-[1.03] hover:bg-[#1ebe5d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:h-15 sm:w-15"
         >
-          <span className="absolute inset-0 rounded-full bg-[#25D366]/35 blur-md" aria-hidden="true" />
-          <span className="absolute inset-0 rounded-full border border-white/25" aria-hidden="true" />
+          <span
+            className="absolute inset-0 rounded-full bg-[#25D366]/35 blur-md"
+            aria-hidden="true"
+          />
+          <span
+            className="absolute inset-0 rounded-full border border-white/25"
+            aria-hidden="true"
+          />
           <span className="relative flex h-full w-full items-center justify-center rounded-full">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/18 opacity-70" />
             <SiWhatsapp className="relative h-6 w-6 sm:h-7 sm:w-7" />

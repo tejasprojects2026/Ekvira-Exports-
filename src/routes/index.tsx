@@ -29,6 +29,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { trackContactClick, trackEvent } from "@/lib/analytics";
 import { whatsappLink } from "@/lib/whatsapp";
 import {
   Select,
@@ -47,7 +48,14 @@ import seasonalProductsImage from "@/assets/product-page-images/Seasonal Product
 import honeyImage from "@/assets/category-images/honey.jpg";
 import spicesCategoryImage from "@/assets/product-page-images/spices/chilli powder.png";
 import heroAgriImage from "@/assets/hero-agri.jpg";
-import { SITE_NAME, SITE_URL, toAbsoluteUrl } from "@/lib/seo";
+import {
+  BUSINESS_EMAIL,
+  BUSINESS_HOURS_LABEL,
+  BUSINESS_PHONE,
+  SITE_NAME,
+  SITE_URL,
+  toAbsoluteUrl,
+} from "@/lib/seo";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -71,6 +79,7 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
       { property: "og:url", content: SITE_URL },
       { property: "og:image", content: toAbsoluteUrl(heroAgriImage) },
+      { property: "og:image:alt", content: "Fresh Indian agricultural produce ready for export" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: `${SITE_NAME} | Export-Ready Agri Products from India` },
       {
@@ -79,10 +88,9 @@ export const Route = createFileRoute("/")({
           "Directly sourced from verified producers across India - compliant, export-ready, and available for domestic and international orders.",
       },
       { name: "twitter:image", content: toAbsoluteUrl(heroAgriImage) },
+      { name: "twitter:image:alt", content: "Fresh Indian agricultural produce ready for export" },
     ],
-    links: [
-      { rel: "canonical", href: SITE_URL },
-    ],
+    links: [{ rel: "canonical", href: SITE_URL }],
   }),
   component: HomePage,
 });
@@ -104,12 +112,7 @@ const categories = [
     image: vegetablesFruitsImage,
     description:
       "Fresh produce visuals for retail, wholesale, and export-led sourcing conversations.",
-    products: [
-      "Fresh vegetables",
-      "Seasonal fruits",
-      "Mixed produce",
-      "Cold-chain supply",
-    ],
+    products: ["Fresh vegetables", "Seasonal fruits", "Mixed produce", "Cold-chain supply"],
   },
   {
     icon: Flame,
@@ -134,8 +137,7 @@ const categories = [
     title: "Textiles",
     // eyebrow: "Category 03",
     image: textilesImage,
-    description:
-      "Fabric and textile visuals for apparel, furnishing, and bulk material sourcing.",
+    description: "Fabric and textile visuals for apparel, furnishing, and bulk material sourcing.",
     products: ["Cotton", "Linen", "Woven fabric", "Rolls"],
   },
   {
@@ -289,7 +291,6 @@ function CategoryCard({ category }: { category: Category }) {
             <span className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gold/18 text-primary transition-colors">
               <category.icon className="h-7 w-7" />
             </span>
-           
           </div>
 
           {/* <div className="mt-6 text-xs font-medium uppercase tracking-[0.22em] text-primary">
@@ -348,6 +349,10 @@ function HomePage() {
       };
 
       if (response.ok && result.success) {
+        trackEvent("generate_lead", {
+          form_name: "website_enquiry",
+          lead_type: "export_enquiry",
+        });
         setSubmitStatus({
           type: "success",
           message: "Thanks. Your enquiry has been sent successfully.",
@@ -371,10 +376,7 @@ function HomePage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: homeStructuredData }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: homeStructuredData }} />
       <SiteHeader />
       <main className="flex-1">
         <section className="relative overflow-hidden">
@@ -417,8 +419,9 @@ function HomePage() {
                 Explore Our <span className="italic text-primary">Categories</span>
               </h2>
               <p className="mt-4 text-muted-foreground text-lg max-w-2xl">
-                A structured category section is now in place, covering a wider mix of products
-                in the same format.
+                Browse export-ready categories sourced through trusted Indian growers, processors,
+                and manufacturers, including fresh produce, spices, beverages, textiles, honey, and
+                engineering goods.
               </p>
             </div>
 
@@ -535,7 +538,7 @@ function HomePage() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="category">Role  </Label>
+                    <Label htmlFor="category">Role </Label>
                     <Select name="category">
                       <SelectTrigger id="category" className="h-11">
                         <SelectValue placeholder="Select category" />
@@ -584,15 +587,12 @@ function HomePage() {
                   disabled={isSubmitting}
                   className="mt-6 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 h-12 px-7"
                 >
-                  {isSubmitting ? "Sending..." : "Send Enquiry"}{" "}
-                  <ArrowRight className="h-4 w-4" />
+                  {isSubmitting ? "Sending..." : "Send Enquiry"} <ArrowRight className="h-4 w-4" />
                 </Button>
                 {submitStatus ? (
                   <p
                     className={`mt-4 text-sm ${
-                      submitStatus.type === "success"
-                        ? "text-emerald-600"
-                        : "text-destructive"
+                      submitStatus.type === "success" ? "text-emerald-600" : "text-destructive"
                     }`}
                   >
                     {submitStatus.message}
@@ -615,24 +615,26 @@ function HomePage() {
                     <li className="flex gap-3">
                       <Mail className="h-5 w-5 text-gold shrink-0 mt-0.5" />
                       <a
-                        href="mailto:ekviraexporthouse@gmail.com"
+                        href={`mailto:${BUSINESS_EMAIL}`}
+                        onClick={() => trackContactClick("email", "home_contact_card_email")}
                         className="text-primary-foreground/90 hover:text-gold transition-colors break-all"
                       >
-                        ekviraexporthouse@gmail.com
+                        {BUSINESS_EMAIL}
                       </a>
                     </li>
                     <li className="flex gap-3">
                       <Phone className="h-5 w-5 text-gold shrink-0 mt-0.5" />
                       <a
-                        href="tel:+917276533359"
+                        href={`tel:${BUSINESS_PHONE}`}
+                        onClick={() => trackContactClick("phone", "home_contact_card_phone")}
                         className="text-primary-foreground/90 hover:text-gold transition-colors"
                       >
-                        +91 72765 33359
+                        {BUSINESS_PHONE}
                       </a>
                     </li>
                     <li className="flex gap-3">
                       <Clock className="h-5 w-5 text-gold shrink-0 mt-0.5" />
-                      <span className="text-primary-foreground/90">Mon-Sat: 9 AM - 6 PM IST</span>
+                      <span className="text-primary-foreground/90">{BUSINESS_HOURS_LABEL}</span>
                     </li>
                   </ul>
                 </div>
@@ -646,7 +648,12 @@ function HomePage() {
                     size="lg"
                     className="mt-4 w-full rounded-full bg-gold text-gold-foreground hover:bg-gold/90 h-12"
                   >
-                    <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={whatsappLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackContactClick("whatsapp", "home_whatsapp_cta")}
+                    >
                       <MessageCircle className="h-4 w-4" /> Chat on WhatsApp
                     </a>
                   </Button>
