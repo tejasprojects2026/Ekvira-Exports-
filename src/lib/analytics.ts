@@ -35,7 +35,7 @@ export function trackPageView({ path, search = "" }: { path: string; search?: st
   const pageLocation = new URL(window.location.href);
   pageLocation.hash = "";
 
-  window.gtag!("event", "page_view", {
+  window.gtag!("config", GA_MEASUREMENT_ID, {
     page_title: document.title,
     page_location: pageLocation.toString(),
     page_path: `${path}${search}`,
