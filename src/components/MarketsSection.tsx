@@ -108,14 +108,7 @@ const markets: Market[] = [
     coordinates: [-2.5, 54.6],
     type: "country",
     hoverTargetLabel: "Europe",
-    bubbleItems: [
-      "United Kingdom",
-      "Leicester",
-      "London",
-      "Slough",
-      "Hounslow",
-      "Birmingham",
-    ],
+    bubbleItems: ["United Kingdom", "Leicester", "London", "Slough", "Hounslow", "Birmingham"],
   },
   {
     greeting: "Hello",
@@ -226,14 +219,7 @@ const markets: Market[] = [
     label: "Europe",
     coordinates: [12.0, 50.5],
     type: "region",
-    bubbleItems: [
-      "United Kingdom",
-      "Leicester",
-      "London",
-      "Slough",
-      "Hounslow",
-      "Birmingham",
-    ],
+    bubbleItems: ["United Kingdom", "Leicester", "London", "Slough", "Hounslow", "Birmingham"],
   },
   {
     greeting: "Hello",
@@ -507,7 +493,7 @@ export function MarketsSection() {
                       stroke={isHighlighted ? highlightStroke : "oklch(0.8 0.03 85)"}
                       strokeWidth={isHighlighted ? 1.5 : 0.9}
                       style={{ cursor: isHighlighted ? "pointer" : "default" }}
-                      tabIndex={isHighlighted ? 0 : undefined}
+                      tabIndex={isHighlighted && !isMobile ? 0 : undefined}
                       aria-label={
                         market ? `${market.mapName ?? market.label}: ${market.greeting}` : undefined
                       }
@@ -524,7 +510,7 @@ export function MarketsSection() {
                         }
                       }}
                       onFocus={() => {
-                        if (market) {
+                        if (!isMobile && market) {
                           setActiveMarketLabel(market.label);
                         }
                       }}
@@ -541,6 +527,11 @@ export function MarketsSection() {
                         }
 
                         event.stopPropagation();
+                        if (isMobile) {
+                          setActiveMarketLabel(market.label);
+                          return;
+                        }
+
                         toggleMarket(market.label);
                       }}
                       onKeyDown={(event) => {
@@ -599,8 +590,8 @@ export function MarketsSection() {
                   const labelDy = market.labelDy ?? (isRegion ? 24 : isCity ? 22 : 20);
                   const displayLabel = market.displayLabel ?? market.label;
 
-                return (
-                  <g key={market.label} transform={`translate(${market.x}, ${market.y})`}>
+                  return (
+                    <g key={market.label} transform={`translate(${market.x}, ${market.y})`}>
                       <g
                         aria-hidden={!isActiveMarket}
                         className="pointer-events-none transition-all duration-200"
@@ -635,7 +626,7 @@ export function MarketsSection() {
                         role="button"
                         fill="transparent"
                         style={{ cursor: "pointer" }}
-                        tabIndex={0}
+                        tabIndex={isMobile ? undefined : 0}
                         aria-label={`${market.mapName ?? market.label}: ${market.greeting}`}
                         onMouseEnter={() => {
                           if (!isMobile) {
@@ -649,7 +640,11 @@ export function MarketsSection() {
                             );
                           }
                         }}
-                        onFocus={() => setMarketFromHover(market)}
+                        onFocus={() => {
+                          if (!isMobile) {
+                            setMarketFromHover(market);
+                          }
+                        }}
                         onBlur={() => {
                           if (!isMobile) {
                             setActiveMarketLabel((current) =>
@@ -659,6 +654,11 @@ export function MarketsSection() {
                         }}
                         onClick={(event) => {
                           event.stopPropagation();
+                          if (isMobile) {
+                            setActiveMarketLabel(hoverLabel);
+                            return;
+                          }
+
                           toggleMarket(hoverLabel);
                         }}
                         onKeyDown={(event) => {
