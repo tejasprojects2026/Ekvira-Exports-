@@ -116,7 +116,14 @@ export function SiteFooter() {
           <ul className="space-y-1.5 text-sm opacity-85">
             <li className="flex items-start gap-2">
               <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
-              <span>Pune, Maharashtra, India</span>
+              <a
+                href={GOOGLE_MAPS_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="transition-colors hover:text-gold"
+              >
+                Pune, Maharashtra, India
+              </a>
             </li>
             <li className="flex items-start gap-2">
               <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold/80" />

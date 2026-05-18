@@ -13,7 +13,7 @@ export const BUSINESS_PHONE = "+917276533359";
 export const BUSINESS_PHONE_ALT = "+917875803175";
 export const BUSINESS_HOURS_LABEL = "Mon-Sat: 9 AM - 6 PM IST";
 export const GOOGLE_MAPS_URL =
-  "https://www.google.com/search?kgmid=/g/11nc785cmw&q=Ekvira+Export+House+Pvt+Ltd";
+  "https://share.google/a65IcC5qyPmrTGU3x";
 export const SOCIAL_URLS = {
   instagram: "https://www.instagram.com/ekviraexporthouse/",
   facebook: "https://www.facebook.com/profile.php?id=61572108069048",
