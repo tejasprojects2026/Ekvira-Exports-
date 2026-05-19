@@ -23,48 +23,37 @@ import { Button } from "@/components/ui/button";
 import { trackContactClick } from "@/lib/analytics";
 import {
   BUSINESS_EMAIL,
-  SITE_NAME,
-  SITE_URL,
-  createBreadcrumbJsonLd,
-  toAbsoluteUrl,
+  ORGANIZATION_ID,
+  createPageHead,
+  createPageJsonLd,
 } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 
+const ABOUT_TITLE = "About Ekvira Export House | Merchant Exporter in Pune";
+const ABOUT_DESCRIPTION =
+  "Learn about Ekvira Export House, our sourcing process, compliance-first documentation, and trusted agri export partnerships from Pune, India.";
+const ABOUT_KEYWORD_LIST = [
+  "about Ekvira Export House",
+  "merchant exporter in Pune",
+  "export company in Maharashtra",
+  "Indian agricultural export company",
+  "APEDA compliant exporter",
+  "export documentation India",
+  "supplier sourcing India",
+  "international trade partner India",
+] as const;
+const ABOUT_KEYWORDS = ABOUT_KEYWORD_LIST.join(", ");
+
 export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: `About | ${SITE_NAME}` },
-      {
-        name: "description",
-        content:
-          "Learn about Ekvira Export House, our sourcing process, compliance-first documentation, and trusted agri export partnerships from India.",
-      },
-      {
-        name: "keywords",
-        content:
-          "about Ekvira Export House, Indian exporter Pune, agri export company India, APEDA exporter Maharashtra, merchant exporter Pune",
-      },
-      { property: "og:title", content: `About | ${SITE_NAME}` },
-      {
-        property: "og:description",
-        content: "Your trusted agri trading partner - bridging Indian farms with global markets.",
-      },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: `${SITE_URL}/about` },
-      { property: "og:image", content: toAbsoluteUrl(aboutBreadcrumbBanner) },
-      { property: "og:image:alt", content: "Ekvira Export House about page banner" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: `About | ${SITE_NAME}` },
-      {
-        name: "twitter:description",
-        content:
-          "Learn about Ekvira Export House, our sourcing process, compliance-first documentation, and trusted agri export partnerships from India.",
-      },
-      { name: "twitter:image", content: toAbsoluteUrl(aboutBreadcrumbBanner) },
-      { name: "twitter:image:alt", content: "Ekvira Export House about page banner" },
-    ],
-    links: [{ rel: "canonical", href: `${SITE_URL}/about` }],
-  }),
+  head: () =>
+    createPageHead({
+      title: ABOUT_TITLE,
+      description: ABOUT_DESCRIPTION,
+      path: "/about",
+      keywords: ABOUT_KEYWORDS,
+      image: aboutBreadcrumbBanner,
+      imageAlt: "Ekvira Export House about page banner",
+    }),
   component: AboutPage,
 });
 
@@ -163,20 +152,25 @@ const stats = [
   { value: "100%", label: "Compliance & Documentation Focus" },
 ];
 
-const aboutStructuredData = JSON.stringify([
-  {
-    "@context": "https://schema.org",
-    "@type": "AboutPage",
-    name: `About ${SITE_NAME}`,
-    url: `${SITE_URL}/about`,
-    description:
-      "Pune-based merchant trading firm specializing in agricultural and farm exports with compliance-first processes.",
-  },
-  createBreadcrumbJsonLd([
-    { name: "Home", item: SITE_URL },
-    { name: "About", item: `${SITE_URL}/about` },
-  ]),
-]);
+const aboutStructuredData = JSON.stringify(
+  createPageJsonLd({
+    type: "AboutPage",
+    name: ABOUT_TITLE,
+    description: ABOUT_DESCRIPTION,
+    path: "/about",
+    image: aboutBreadcrumbBanner,
+    keywords: [
+      ...ABOUT_KEYWORD_LIST,
+    ],
+    breadcrumbItems: [
+      { name: "Home", item: "https://ekviraexporthouse.com/" },
+      { name: "About", item: "https://ekviraexporthouse.com/about" },
+    ],
+    mainEntity: {
+      "@id": ORGANIZATION_ID,
+    },
+  }),
+);
 
 function AboutPage() {
   return (

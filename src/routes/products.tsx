@@ -47,44 +47,34 @@ import spicesTurmericPowderImage from "@/assets/product-page-images/spices/turme
 import { PageBreadcrumbHero } from "@/components/PageBreadcrumbHero";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
-import { SITE_NAME, SITE_URL, createBreadcrumbJsonLd, toAbsoluteUrl } from "@/lib/seo";
+import { createPageHead, createPageJsonLd, toFragmentId } from "@/lib/seo";
+
+const PRODUCTS_TITLE = "Products | Indian Export Products from Ekvira Export House";
+const PRODUCTS_DESCRIPTION =
+  "Browse export-ready vegetables, fruits, spices, beverages, textiles, honey, seasonal products, and engineering goods sourced across India.";
+const PRODUCTS_KEYWORD_LIST = [
+  "Indian export products",
+  "vegetables and fruits exporter India",
+  "spices powder exporter India",
+  "bulk honey exporter India",
+  "textiles exporter Pune",
+  "beverages exporter India",
+  "engineering goods exporter India",
+  "seasonal products exporter India",
+  "Indian supplier for GCC markets",
+] as const;
+const PRODUCTS_KEYWORDS = PRODUCTS_KEYWORD_LIST.join(", ");
 
 export const Route = createFileRoute("/products")({
-  head: () => ({
-    meta: [
-      { title: `Products | ${SITE_NAME}` },
-      {
-        name: "description",
-        content:
-          "Browse export-ready products including vegetables, fruits, grains, spices, beverages, textiles, honey, seasonal products, and engineering goods sourced from India.",
-      },
-      {
-        name: "keywords",
-        content:
-          "export products India, spices exporter India, fruit exporter India, honey exporter India, textiles exporter Pune, engineering goods export",
-      },
-      { property: "og:title", content: `Products | ${SITE_NAME}` },
-      {
-        property: "og:description",
-        content:
-          "Directly sourced from verified producers across India - compliant, export-ready, and available for domestic and international orders.",
-      },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: `${SITE_URL}/products` },
-      { property: "og:image", content: toAbsoluteUrl(productsBreadcrumbBanner) },
-      { property: "og:image:alt", content: "Ekvira Export House products banner" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: `Products | ${SITE_NAME}` },
-      {
-        name: "twitter:description",
-        content:
-          "Directly sourced from verified producers across India - compliant, export-ready, and available for domestic and international orders.",
-      },
-      { name: "twitter:image", content: toAbsoluteUrl(productsBreadcrumbBanner) },
-      { name: "twitter:image:alt", content: "Ekvira Export House products banner" },
-    ],
-    links: [{ rel: "canonical", href: `${SITE_URL}/products` }],
-  }),
+  head: () =>
+    createPageHead({
+      title: PRODUCTS_TITLE,
+      description: PRODUCTS_DESCRIPTION,
+      path: "/products",
+      keywords: PRODUCTS_KEYWORDS,
+      image: productsBreadcrumbBanner,
+      imageAlt: "Ekvira Export House products banner",
+    }),
   component: ProductsPage,
 });
 
@@ -674,12 +664,20 @@ const products: Product[] = [
   },
 ] as const;
 
-const productsStructuredData = JSON.stringify([
-  {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    name: "Our Product Portfolio",
-    url: `${SITE_URL}/products`,
+const productsStructuredData = JSON.stringify(
+  createPageJsonLd({
+    type: "CollectionPage",
+    name: PRODUCTS_TITLE,
+    description: PRODUCTS_DESCRIPTION,
+    path: "/products",
+    image: productsBreadcrumbBanner,
+    keywords: [
+      ...PRODUCTS_KEYWORD_LIST,
+    ],
+    breadcrumbItems: [
+      { name: "Home", item: "https://ekviraexporthouse.com/" },
+      { name: "Products", item: "https://ekviraexporthouse.com/products" },
+    ],
     mainEntity: {
       "@type": "ItemList",
       name: "Product Categories",
@@ -687,14 +685,15 @@ const productsStructuredData = JSON.stringify([
         "@type": "ListItem",
         position: index + 1,
         name: product.title,
+        description: product.items,
       })),
     },
-  },
-  createBreadcrumbJsonLd([
-    { name: "Home", item: SITE_URL },
-    { name: "Products", item: `${SITE_URL}/products` },
-  ]),
-]);
+  }),
+);
+
+const productByFragment = new Map(
+  products.map((product) => [toFragmentId(product.title), product] as const),
+);
 
 function ProductsPage() {
   const [activeProduct, setActiveProduct] = useState<(typeof products)[number]>(products[0]);
@@ -712,6 +711,22 @@ function ProductsPage() {
   useEffect(() => {
     setCarouselPage(0);
   }, [activeProduct.title]);
+
+  useEffect(() => {
+    const syncProductFromHash = () => {
+      const fragment = window.location.hash.replace(/^#/, "");
+      const productFromHash = productByFragment.get(fragment);
+
+      if (productFromHash) {
+        setActiveProduct(productFromHash);
+      }
+    };
+
+    syncProductFromHash();
+    window.addEventListener("hashchange", syncProductFromHash);
+
+    return () => window.removeEventListener("hashchange", syncProductFromHash);
+  }, []);
 
   useEffect(() => {
     if (activeProduct.previewStyle === "grid" || activeCarouselPages.length <= 1) {
@@ -756,6 +771,7 @@ function ProductsPage() {
               {products.map((p) => (
                 <button
                   key={p.title}
+                  id={toFragmentId(p.title)}
                   type="button"
                   className={`group flex w-full items-center gap-4 rounded-[2rem] border bg-card p-5 text-left soft-shadow transition-all hover:-translate-y-1 hover:soft-shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 sm:gap-5 sm:p-6 ${
                     activeProduct.title === p.title
@@ -764,7 +780,14 @@ function ProductsPage() {
                   }`}
                   onMouseEnter={() => setActiveProduct(p)}
                   onFocus={() => setActiveProduct(p)}
-                  onClick={() => setActiveProduct(p)}
+                  onClick={() => {
+                    setActiveProduct(p);
+                    window.history.replaceState(
+                      null,
+                      "",
+                      `${window.location.pathname}#${toFragmentId(p.title)}`,
+                    );
+                  }}
                 >
                   <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gold/20 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground sm:h-14 sm:w-14">
                     <p.icon className="h-6 w-6 sm:h-7 sm:w-7" />

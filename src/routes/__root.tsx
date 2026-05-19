@@ -3,8 +3,10 @@ import ekviraLogo from "@/assets/ekvira-logo.jpeg";
 import { GoogleAnalyticsPageTracker, GoogleAnalyticsScripts } from "@/components/GoogleAnalytics";
 import { FloatingWhatsAppButton } from "@/components/FloatingWhatsAppButton";
 import {
+  DEFAULT_ROBOTS_POLICY,
   SITE_LOCALE,
   SITE_DESCRIPTION,
+  SITE_KEYWORDS,
   SITE_NAME,
   SITE_LOGO_URL,
   SITE_TITLE,
@@ -45,10 +47,15 @@ export const Route = createRootRoute({
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { title: SITE_TITLE },
       { name: "description", content: SITE_DESCRIPTION },
+      { name: "keywords", content: SITE_KEYWORDS },
       { name: "author", content: SITE_NAME },
-      { name: "robots", content: "index, follow, max-image-preview:large" },
+      { name: "robots", content: DEFAULT_ROBOTS_POLICY },
+      { name: "googlebot", content: DEFAULT_ROBOTS_POLICY },
       { name: "format-detection", content: "telephone=no" },
+      { name: "referrer", content: "strict-origin-when-cross-origin" },
       { name: "theme-color", content: "#2f5a2f" },
+      { name: "application-name", content: SITE_NAME },
+      { name: "apple-mobile-web-app-title", content: SITE_NAME },
       { property: "og:title", content: SITE_TITLE },
       { property: "og:description", content: SITE_DESCRIPTION },
       { property: "og:type", content: "website" },

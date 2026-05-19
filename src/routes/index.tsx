@@ -53,46 +53,40 @@ import {
   BUSINESS_HOURS_LABEL,
   BUSINESS_PHONE,
   GOOGLE_MAPS_URL,
-  SITE_NAME,
-  SITE_URL,
-  toAbsoluteUrl,
+  createPageHead,
+  createPageJsonLd,
+  toFragmentId,
 } from "@/lib/seo";
+
+const HOME_TITLE = "Ekvira Export House | Indian Agri & Farm Product Exporter";
+const HOME_DESCRIPTION =
+  "Export-ready vegetables, fruits, spices, honey, beverages, textiles, and engineering goods sourced from India with compliant documentation and reliable trade support.";
+const HOME_KEYWORD_LIST = [
+  "merchant exporter Pune",
+  "Indian agri exporter",
+  "fresh vegetables exporter India",
+  "fresh fruits exporter India",
+  "spices exporter India",
+  "honey exporter India",
+  "beverages exporter India",
+  "textiles exporter India",
+  "engineering goods exporter India",
+  "export house in Maharashtra",
+  "Middle East export supplier",
+  "GCC import export partner",
+] as const;
+const HOME_KEYWORDS = HOME_KEYWORD_LIST.join(", ");
+
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: `${SITE_NAME} | Export-Ready Agri Products from India` },
-      {
-        name: "description",
-        content:
-          "Export-ready vegetables, fruits, spices, beverages, textiles, honey, and seasonal products sourced across India with compliant documentation and fast enquiry response.",
-      },
-      {
-        name: "keywords",
-        content:
-          "agri exports India, Indian farm products exporter, vegetables and fruits export, grains and spices export, GCC export supplier, Pune export house",
-      },
-      { property: "og:title", content: `${SITE_NAME} | Export-Ready Agri Products from India` },
-      {
-        property: "og:description",
-        content:
-          "Directly sourced from verified producers across India - compliant, export-ready, and available for domestic and international orders.",
-      },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: SITE_URL },
-      { property: "og:image", content: toAbsoluteUrl(heroAgriImage) },
-      { property: "og:image:alt", content: "Fresh Indian agricultural produce ready for export" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: `${SITE_NAME} | Export-Ready Agri Products from India` },
-      {
-        name: "twitter:description",
-        content:
-          "Directly sourced from verified producers across India - compliant, export-ready, and available for domestic and international orders.",
-      },
-      { name: "twitter:image", content: toAbsoluteUrl(heroAgriImage) },
-      { name: "twitter:image:alt", content: "Fresh Indian agricultural produce ready for export" },
-    ],
-    links: [{ rel: "canonical", href: SITE_URL }],
-  }),
+  head: () =>
+    createPageHead({
+      title: HOME_TITLE,
+      description: HOME_DESCRIPTION,
+      path: "/",
+      keywords: HOME_KEYWORDS,
+      image: heroAgriImage,
+      imageAlt: "Fresh Indian agricultural produce ready for export",
+    }),
   component: HomePage,
 });
 
@@ -206,26 +200,28 @@ const whyChooseUs = [
   },
 ] as const;
 
-const homeStructuredData = JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  name: "Our Product Portfolio",
-  url: SITE_URL,
-  about: {
-    "@type": "Organization",
-    name: SITE_NAME,
-    url: SITE_URL,
-  },
-  mainEntity: {
-    "@type": "ItemList",
-    name: "Export Categories",
-    itemListElement: categories.map((category, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: category.title,
-    })),
-  },
-});
+const homeStructuredData = JSON.stringify(
+  createPageJsonLd({
+    type: "WebPage",
+    name: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+    path: "/",
+    image: heroAgriImage,
+    keywords: [
+      ...HOME_KEYWORD_LIST,
+    ],
+    mainEntity: {
+      "@type": "ItemList",
+      name: "Export Categories",
+      itemListElement: categories.map((category, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: category.title,
+        description: category.description,
+      })),
+    },
+  }),
+);
 
 type Category = (typeof categories)[number];
 
@@ -310,7 +306,9 @@ function CategoryCard({ category }: { category: Category }) {
               size="sm"
               className="rounded-full border border-zinc-300 bg-zinc-200 text-zinc-900 hover:bg-zinc-300"
             >
-              <Link to="/products">View More</Link>
+              <Link to="/products" hash={toFragmentId(category.title)}>
+                View More
+              </Link>
             </Button>
           </div>
         </div>

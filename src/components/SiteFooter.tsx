@@ -9,6 +9,7 @@ import {
   BUSINESS_PHONE_ALT,
   GOOGLE_MAPS_URL,
   SOCIAL_URLS,
+  toFragmentId,
 } from "@/lib/seo";
 
 const socialLinks = [
@@ -105,7 +106,9 @@ export function SiteFooter() {
             {footerCategories.map((category) => (
               <li key={category} className="flex items-start gap-2">
                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold/80" />
-                <span>{category}</span>
+                <Link to="/products" hash={toFragmentId(category)} className="hover:text-gold transition-colors">
+                  {category}
+                </Link>
               </li>
             ))}
           </ul>
