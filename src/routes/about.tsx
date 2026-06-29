@@ -1,0 +1,592 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import {
+  ArrowRight,
+  Award,
+  BadgeCheck,
+  Check,
+  ClipboardCheck,
+  FileText,
+  Globe2,
+  Handshake,
+  Leaf,
+  MapPin,
+  Search,
+  ShieldCheck,
+  Sprout,
+  Truck,
+} from "lucide-react";
+import aboutBreadcrumbBanner from "@/assets/about-breadcrumb-banner.jpg";
+import { PageBreadcrumbHero } from "@/components/PageBreadcrumbHero";
+import { SiteFooter } from "@/components/SiteFooter";
+import { SiteHeader } from "@/components/SiteHeader";
+import { Button } from "@/components/ui/button";
+import { trackContactClick } from "@/lib/analytics";
+import {
+  BUSINESS_EMAIL,
+  ORGANIZATION_ID,
+  createPageHead,
+  createPageJsonLd,
+} from "@/lib/seo";
+import { cn } from "@/lib/utils";
+
+const ABOUT_TITLE = "About Ekvira Export House | Merchant Exporter in Pune";
+const ABOUT_DESCRIPTION =
+  "Learn about Ekvira Export House, our sourcing process, compliance-first documentation, and trusted agri export partnerships from Pune, India.";
+const ABOUT_KEYWORD_LIST = [
+  "about Ekvira Export House",
+  "merchant exporter in Pune",
+  "export company in Maharashtra",
+  "Indian agricultural export company",
+  "APEDA compliant exporter",
+  "export documentation India",
+  "supplier sourcing India",
+  "international trade partner India",
+] as const;
+const ABOUT_KEYWORDS = ABOUT_KEYWORD_LIST.join(", ");
+
+export const Route = createFileRoute("/about")({
+  head: () =>
+    createPageHead({
+      title: ABOUT_TITLE,
+      description: ABOUT_DESCRIPTION,
+      path: "/about",
+      keywords: ABOUT_KEYWORDS,
+      image: aboutBreadcrumbBanner,
+      imageAlt: "Ekvira Export House about page banner",
+    }),
+  component: AboutPage,
+});
+
+const checklist = [
+  {
+    icon: ShieldCheck,
+    label: "APEDA & FSSAI Compliant",
+    desc: "Fully registered for international trade and food safety standards.",
+  },
+  {
+    icon: Truck,
+    label: "Farm-to-Port Coordination",
+    desc: "Seamless logistics from sourcing villages to shipping ports.",
+  },
+  {
+    icon: FileText,
+    label: "Transparent Documentation",
+    desc: "Complete export paperwork, COO, phyto, and quality certificates.",
+  },
+  {
+    icon: Award,
+    label: "Reliable Quality Control",
+    desc: "Multi-stage inspection at sourcing, packing, and dispatch.",
+  },
+];
+
+const values = [
+  {
+    icon: Sprout,
+    title: "Rooted in India",
+    desc: "Direct relationships with farmers and APEDA-registered suppliers across Maharashtra and beyond.",
+  },
+  {
+    icon: Globe2,
+    title: "Built for the World",
+    desc: "Trade corridors focused on the Middle East with growing reach into adjacent global markets.",
+  },
+  {
+    icon: Handshake,
+    title: "Trade as Partnership",
+    desc: "Long-term relationships with buyers - not one-off shipments. Trust is our default.",
+  },
+  {
+    icon: Leaf,
+    title: "Quality at Every Step",
+    desc: "From the soil it grew in to the container it ships in - quality is non-negotiable.",
+  },
+];
+
+const supplierStory = [
+  {
+    icon: Search,
+    step: "STEP 1",
+    title: "Finding suppliers",
+    desc: "We begin by finding suppliers who can provide the best goods.",
+    accent: "#78d7cf",
+    bubbleClass: "lg:left-[24%] lg:top-[84%]",
+    bubbleSizeClass: undefined,
+  },
+  {
+    icon: ClipboardCheck,
+    step: "STEP 2",
+    title: "Supplier Management",
+    desc: "Each option is checked for quality, pricing, consistency, and compliance. The right partners are then onboarded with clear expectations and simple communication.",
+    accent: "#5d84b8",
+    bubbleClass: "lg:left-[18%] lg:top-[46%]",
+    bubbleSizeClass: "lg:h-[280px] lg:w-[280px] lg:px-7",
+  },
+  {
+    icon: BadgeCheck,
+    step: "STEP 3",
+    title: "Compliances",
+    desc: "",
+    accent: "#ef6251",
+    bubbleClass: "lg:left-[58%] lg:top-[61%]",
+    bubbleSizeClass: "lg:h-[260px] lg:w-[260px] lg:px-6",
+    showCertificates: true,
+  },
+  {
+    icon: Globe2,
+    step: "STEP 4",
+    title: "Global Export",
+    desc: "We ship to 50+ countries ensuring every order arrives fresh, compliant, and on time.",
+    accent: "#ef6251",
+    bubbleClass: "lg:left-[79%] lg:top-[18%]",
+    bubbleSizeClass: "lg:h-[240px] lg:w-[240px] lg:px-6",
+  },
+] as const;
+
+const certificates = ["IEC", "Spice Board of India", "APEDA", "FSSAI", "ISO"] as const;
+
+const stats = [
+  { value: "40+", label: "Products Across Categories" },
+  { value: "10+", label: "Countries We Export To" },
+  { value: "$30B+", label: "India's Annual Agri Export Market" },
+  { value: "100%", label: "Compliance & Documentation Focus" },
+];
+
+const aboutStructuredData = JSON.stringify(
+  createPageJsonLd({
+    type: "AboutPage",
+    name: ABOUT_TITLE,
+    description: ABOUT_DESCRIPTION,
+    path: "/about",
+    image: aboutBreadcrumbBanner,
+    keywords: [
+      ...ABOUT_KEYWORD_LIST,
+    ],
+    breadcrumbItems: [
+      { name: "Home", item: "https://ekviraexporthouse.com/" },
+      { name: "About", item: "https://ekviraexporthouse.com/about" },
+    ],
+    mainEntity: {
+      "@id": ORGANIZATION_ID,
+    },
+  }),
+);
+
+function AboutPage() {
+  return (
+    <div className="min-h-screen flex flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: aboutStructuredData }}
+      />
+      <SiteHeader />
+      <main className="flex-1">
+        <PageBreadcrumbHero
+          title="About Ekvira Export House"
+          crumbLabel="About"
+          description="A Pune-based merchant trading partner focused on trusted sourcing, compliant trade, and long-term buyer relationships."
+          image={aboutBreadcrumbBanner}
+          imagePosition="object-[72%_center]"
+        />
+
+        <section className="relative overflow-hidden">
+          <div
+            className="absolute inset-0 -z-10 opacity-70"
+            style={{
+              background:
+                "radial-gradient(55% 55% at 85% 15%, oklch(0.78 0.15 75 / 0.18), transparent 60%), radial-gradient(45% 45% at 5% 90%, oklch(0.42 0.09 135 / 0.10), transparent 60%)",
+            }}
+          />
+          <div className="max-w-7xl mx-auto px-5 md:px-8 pt-12 md:pt-16 pb-12 md:pb-16">
+            <div className="mx-auto max-w-6xl text-center">
+              <h2 className="font-serif text-3xl tracking-[-0.03em] text-foreground sm:text-4xl md:text-5xl lg:text-[clamp(3rem,4.2vw,4.5rem)] lg:leading-[0.96]">
+                Your Trusted <span className="italic text-primary">Trading</span>{" "}
+                <span className="relative inline-block">
+                  Partner
+                  <span className="absolute left-0 right-0 -bottom-1 h-1.5 rounded-full bg-gold/70" />
+                </span>
+              </h2>
+            </div>
+
+            <div className="mt-8 grid items-start gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-14">
+              <div>
+                <p className="mt-6 text-justify text-base leading-relaxed text-muted-foreground sm:text-lg">
+                  Ekvira Export House is a Pune-based merchant trading firm specialising in
+                  multi-category import and export. We bridge verified Indian producers and
+                  suppliers with domestic buyers and international markets, with a strong focus on
+                  the Middle East region.
+                </p>
+                <p className="mt-4 text-justify text-base leading-relaxed text-muted-foreground sm:text-lg">
+                  We are committed to quality, compliance, and building long-term trade
+                  relationships - one shipment, one partnership at a time.
+                </p>
+
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                  <Button
+                    asChild
+                    size="lg"
+                    className="h-12 w-full rounded-full bg-gold px-6 text-gold-foreground hover:bg-gold/90 sm:w-auto"
+                  >
+                    <Link to="/products">
+                      See What We Trade <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </Button>
+                  <Button
+                    asChild
+                    size="lg"
+                    variant="outline"
+                    className="h-12 w-full rounded-full border-primary px-6 text-primary hover:bg-primary hover:text-primary-foreground sm:w-auto"
+                  >
+                    <a
+                      href={`mailto:${BUSINESS_EMAIL}`}
+                      onClick={() => trackContactClick("email", "about_cta")}
+                    >
+                      Talk to Us
+                    </a>
+                  </Button>
+                </div>
+              </div>
+
+              <div className="rounded-3xl border border-border/60 bg-card p-6 soft-shadow-lg md:p-8 lg:p-10">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-serif text-2xl text-foreground">What sets us apart</h3>
+                  <span className="text-[10px] uppercase tracking-[0.2em] text-primary bg-primary/10 px-2.5 py-1 rounded-full">
+                    Standards
+                  </span>
+                </div>
+                <ul className="mt-7 space-y-5">
+                  {checklist.map((c) => (
+                    <li key={c.label} className="flex items-start gap-4">
+                      <span className="mt-0.5 h-10 w-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                        <c.icon className="h-5 w-5" />
+                      </span>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <Check className="h-4 w-4 text-primary" />
+                          <span className="font-medium text-foreground">{c.label}</span>
+                        </div>
+                        <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
+                          {c.desc}
+                        </p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl leading-[1.1] text-foreground">
+              Trade built on <span className="italic text-primary">trust, soil and seas</span>.
+            </h2>
+          </div>
+          <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {values.map((v) => (
+              <div
+                key={v.title}
+                className="bg-card rounded-3xl p-7 border border-border/60 soft-shadow hover:-translate-y-1 hover:soft-shadow-lg transition-all"
+              >
+                <span className="h-12 w-12 rounded-2xl bg-gold/20 text-primary flex items-center justify-center">
+                  <v.icon className="h-6 w-6" />
+                </span>
+                <h3 className="mt-5 font-serif text-lg text-foreground">{v.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{v.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="relative overflow-hidden border-y border-border/50 bg-[#faf7f0]">
+          <div
+            className="absolute inset-0 -z-10 opacity-70"
+            style={{
+              background:
+                "radial-gradient(55% 55% at 18% 18%, oklch(0.78 0.15 75 / 0.14), transparent 60%), radial-gradient(45% 45% at 92% 78%, oklch(0.42 0.09 135 / 0.10), transparent 58%)",
+            }}
+          />
+
+          <div className="max-w-7xl mx-auto px-5 md:px-8 py-12 md:py-16">
+            <div className="flex flex-col gap-8 md:gap-10">
+              <div className="max-w-xl">
+                <h2 className="font-serif text-3xl leading-tight text-foreground sm:text-4xl lg:text-5xl">
+                  What sets us apart
+                </h2>
+                <p className="mt-4 max-w-sm text-sm leading-6 text-muted-foreground md:text-base md:leading-7">
+                  Finding, evaluating, and onboarding suppliers that can provide the best goods.
+                </p>
+              </div>
+
+              <div className="relative">
+                <div className="xl:hidden">
+                  <div className="rounded-[2.1rem] border border-border/60 bg-card p-5 soft-shadow-lg md:p-6">
+                    <div className="grid gap-3.5 md:gap-4">
+                      {supplierStory.map((step) => {
+                        const showCertificates =
+                          "showCertificates" in step && step.showCertificates;
+
+                        return (
+                          <div
+                            key={step.title}
+                            className="rounded-[1.65rem] border border-border/60 bg-background p-4 md:p-5"
+                          >
+                            <div className="flex items-start gap-3.5 md:gap-4">
+                              <span
+                                className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl"
+                                style={{ backgroundColor: `${step.accent}22`, color: step.accent }}
+                              >
+                                <step.icon className="h-4.5 w-4.5" />
+                              </span>
+                              <div className="min-w-0">
+                                <div
+                                  className="text-[10px] font-semibold uppercase tracking-[0.2em]"
+                                  style={{ color: step.accent }}
+                                >
+                                  {step.step}
+                                </div>
+                                <h3 className="mt-1 font-serif text-xl md:text-2xl text-foreground">
+                                  {step.title}
+                                </h3>
+                                {step.desc ? (
+                                  <p className="mt-1.5 text-xs leading-5 text-muted-foreground md:text-sm md:leading-6">
+                                    {step.desc}
+                                  </p>
+                                ) : null}
+                                {showCertificates ? (
+                                  <div className="mt-3 flex flex-wrap gap-1.5 md:gap-2">
+                                    {certificates.map((item) => (
+                                      <span
+                                        key={item}
+                                        className="rounded-full border border-primary/15 bg-primary/5 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.14em] text-primary md:px-3 md:text-[11px]"
+                                      >
+                                        {item}
+                                      </span>
+                                    ))}
+                                  </div>
+                                ) : null}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="relative hidden min-h-[980px] overflow-hidden rounded-[3rem] bg-transparent xl:block">
+                  <svg
+                    viewBox="0 0 1200 1120"
+                    className="absolute inset-0 h-full w-full"
+                    aria-hidden="true"
+                  >
+                    <defs>
+                      <filter id="roadShadow" x="-20%" y="-20%" width="140%" height="140%">
+                        <feDropShadow
+                          dx="0"
+                          dy="20"
+                          stdDeviation="18"
+                          floodColor="#1f223a"
+                          floodOpacity="0.28"
+                        />
+                      </filter>
+                    </defs>
+                    <path
+                      d="M 5 1040 C 90 1060 160 1040 220 980 C 285 915 260 830 210 770 C 155 705 105 660 112 585 C 120 500 200 470 260 420 C 320 370 338 290 416 276 C 500 260 540 332 610 414 C 675 492 757 530 826 496 C 900 460 915 375 990 300 C 1060 230 1130 210 1195 180"
+                      fill="none"
+                      stroke="#2a2848"
+                      strokeWidth="148"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      filter="url(#roadShadow)"
+                    />
+                    <path
+                      d="M 5 1040 C 90 1060 160 1040 220 980 C 285 915 260 830 210 770 C 155 705 105 660 112 585 C 120 500 200 470 260 420 C 320 370 338 290 416 276 C 500 260 540 332 610 414 C 675 492 757 530 826 496 C 900 460 915 375 990 300 C 1060 230 1130 210 1195 180"
+                      fill="none"
+                      stroke="#f9f6ef"
+                      strokeWidth="15"
+                      strokeDasharray="30 26"
+                      strokeLinecap="round"
+                      opacity="0.96"
+                    />
+                  </svg>
+
+                  <div className="absolute left-[10%] top-[78%] hidden h-28 w-6 xl:block">
+                    <div className="absolute left-1/2 top-0 h-full w-[3px] -translate-x-1/2 rounded-full bg-[#c7c7cf]" />
+                    <div className="absolute left-1/2 top-2 h-0 w-0 -translate-x-1/2 border-b-[16px] border-l-[24px] border-b-transparent border-l-[#f04f4f]" />
+                  </div>
+
+                  <div className="absolute right-[8%] top-[13%] hidden h-28 w-6 xl:block">
+                    <div className="absolute left-1/2 top-0 h-full w-[3px] -translate-x-1/2 rounded-full bg-[#c7c7cf]" />
+                    <div className="absolute left-1/2 top-2 h-0 w-0 -translate-x-1/2 border-b-[16px] border-l-[24px] border-b-transparent border-l-[#f04f4f]" />
+                  </div>
+
+                  {supplierStory.map((step) => {
+                    const showCertificates = "showCertificates" in step && step.showCertificates;
+                    const isLargeBubble = Boolean(step.bubbleSizeClass);
+                    const isSupplierManagement = step.title === "Supplier Management";
+
+                    return (
+                      <div
+                        key={step.title}
+                        className={cn(
+                          "absolute -translate-x-1/2 -translate-y-1/2",
+                          step.bubbleClass,
+                        )}
+                      >
+                        <div
+                          className={cn(
+                            "relative flex h-[220px] w-[220px] flex-col items-center justify-center rounded-full border border-black/5 bg-[linear-gradient(180deg,rgba(255,255,255,0.97)_0%,rgba(243,241,238,0.92)_100%)] px-6 text-center shadow-[0_24px_45px_-28px_rgba(0,0,0,0.45)]",
+                            step.bubbleSizeClass,
+                            isSupplierManagement ? "px-8" : "",
+                          )}
+                        >
+                          <div className={cn("absolute left-1/2 -translate-x-1/2 -top-12")}>
+                            <MapPin
+                              className={cn(
+                                "drop-shadow-[0_10px_12px_rgba(0,0,0,0.18)]",
+                                "h-16 w-16",
+                              )}
+                              style={{ color: step.accent }}
+                            />
+                          </div>
+
+                          <div
+                            className="text-[10px] font-semibold uppercase tracking-[0.22em]"
+                            style={{ color: step.accent }}
+                          >
+                            {step.step}
+                          </div>
+                          <div
+                            className={cn(
+                              "mt-2.5 font-serif text-[1.65rem] leading-none text-foreground",
+                              step.bubbleSizeClass ? "text-[1.5rem] leading-[0.94]" : "",
+                              isSupplierManagement
+                                ? "max-w-[10ch] text-[1.45rem] leading-[0.98]"
+                                : "",
+                            )}
+                          >
+                            {step.title}
+                          </div>
+                          {!showCertificates ? (
+                            <p
+                              className={cn(
+                                "mt-2.5 text-muted-foreground",
+                                isLargeBubble
+                                  ? "max-w-[18.5ch] text-[13px] leading-[1.5]"
+                                  : "max-w-[16ch] text-[12px] leading-5",
+                                isSupplierManagement ? "max-w-[19.5ch]" : "",
+                              )}
+                            >
+                              {step.desc}
+                            </p>
+                          ) : null}
+
+                          {showCertificates ? (
+                            <div className="mt-4 flex flex-wrap justify-center gap-1.5 px-2">
+                              {certificates.map((item) => (
+                                <span
+                                  key={item}
+                                  className="rounded-full border border-primary/15 bg-primary/5 px-2.5 py-1 text-[8px] font-medium uppercase tracking-[0.1em] text-primary"
+                                >
+                                  {item}
+                                </span>
+                              ))}
+                            </div>
+                          ) : null}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="relative overflow-hidden bg-primary text-primary-foreground">
+          <div
+            className="absolute inset-0 opacity-20"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px)",
+              backgroundSize: "72px 72px",
+            }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(40% 45% at 12% 16%, oklch(0.78 0.15 75 / 0.22), transparent 65%), radial-gradient(32% 38% at 88% 82%, oklch(0.78 0.15 75 / 0.18), transparent 70%)",
+            }}
+          />
+
+          <div className="relative max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20">
+            <div className="max-w-3xl mx-auto text-center">
+              <span className="inline-flex items-center rounded-full border border-white/12 bg-white/8 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.22em] text-white/76">
+                Trade Snapshot
+              </span>
+              <h2 className="mt-5 font-serif text-3xl md:text-4xl lg:text-5xl leading-[1.05] text-white">
+                Numbers that reflect our <span className="italic text-gold">export focus</span>
+              </h2>
+              <p className="mt-4 text-sm md:text-base text-white/72 max-w-2xl mx-auto leading-relaxed">
+                From sourcing depth to regional specialization, these metrics give a quick view of
+                the trade capability we are building around Indian agricultural exports.
+              </p>
+            </div>
+
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+              {stats.map((s) => (
+                <div
+                  key={s.label}
+                  className="group relative overflow-hidden rounded-[1.9rem] border border-white/10 bg-white/8 p-6 text-center backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:bg-white/12 hover:shadow-[0_28px_60px_-28px_rgba(0,0,0,0.55)] md:p-7"
+                >
+                  <div className="absolute inset-x-6 top-0 h-1 rounded-b-full bg-gradient-to-r from-gold/10 via-gold to-gold/10" />
+                  <div className="mt-5 font-serif text-4xl leading-none text-gold sm:text-5xl md:text-6xl">
+                    {s.value}
+                  </div>
+                  <div className="mt-4 text-sm md:text-base font-medium text-white/84">
+                    {s.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20">
+          <div className="rounded-3xl border border-border/60 bg-card p-6 text-center soft-shadow-lg sm:p-8 md:p-10 lg:p-14">
+            <h3 className="font-serif text-3xl md:text-4xl text-foreground">
+              Looking for a reliable Indian agri partner?
+            </h3>
+            <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
+              Tell us what you need - we'll source it, certify it, and ship it from India to your
+              door.
+            </p>
+            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
+              <Button
+                asChild
+                size="lg"
+                className="h-12 w-full rounded-full bg-gold px-6 text-gold-foreground hover:bg-gold/90 sm:w-auto"
+              >
+                <Link to="/" hash="contact">
+                  Get a Quote <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="h-12 w-full rounded-full border-primary px-6 text-primary hover:bg-primary hover:text-primary-foreground sm:w-auto"
+              >
+                <Link to="/products">Browse Products</Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+      </main>
+      <SiteFooter />
+    </div>
+  );
+}

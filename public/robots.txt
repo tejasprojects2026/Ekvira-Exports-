@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Host: https://ekviraexporthouse.com
+Sitemap: https://ekviraexporthouse.com/sitemap.xml
